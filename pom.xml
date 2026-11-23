@@ -29,7 +29,7 @@
         <checkstyle.plugin.version>3.6.0</checkstyle.plugin.version>
         <spotbugs.plugin.version>4.9.3.0</spotbugs.plugin.version>
         <findsecbugs.version>1.14.0</findsecbugs.version>
-        <dependency-check.plugin.version>12.1.0</dependency-check.plugin.version>
+        <dependency-check.plugin.version>12.1.9</dependency-check.plugin.version>
         <sonar.plugin.version>5.1.0.4751</sonar.plugin.version>
 
         <!-- ============ SonarCloud ============ -->
