@@ -35,8 +35,8 @@ public class Strategy {
 	/** Registro de eventos de la estrategia. */
 	private static final Logger LOGGER = Logger.getLogger(Strategy.class.getName());
 
-	/** El modo de búsqueda. */
-	private static Strategy strategy = null;
+	/** Instancia única de la estrategia (se crea al cargar la clase). */
+	private static Strategy strategy = new Strategy();
 	/** El mejor estado encontrado. */
 	private State bestState;
 	/** El problema. */
@@ -103,14 +103,11 @@ public class Strategy {
 	}
 
 	/**
-	 * Devuelve la instancia única de la estrategia, creándola si no existe.
+	 * Devuelve la instancia única de la estrategia.
 	 *
 	 * @return la estrategia
 	 */
-	public static synchronized Strategy getStrategy() {
-		if (strategy == null) {
-			strategy = new Strategy();
-		}
+	public static Strategy getStrategy() {
 		return strategy;
 	}
 
@@ -448,13 +445,9 @@ public class Strategy {
 	/**
 	 * Devuelve el problema.
 	 *
-	 * @return el problema (nunca {@code null})
-	 * @throws IllegalStateException si todavía no se ha asignado un problema con {@link #setProblem(Problem)}
+	 * @return el problema, o {@code null} si todavía no se ha asignado (ver {@link #hasProblem()})
 	 */
 	public Problem getProblem() {
-		if (problem == null) {
-			throw new IllegalStateException("No se ha asignado ningún problema a la estrategia");
-		}
 		return problem;
 	}
 
@@ -561,9 +554,9 @@ public class Strategy {
 		this.countCurrent = countCurrent;
 	}
 
-	/** Destruye la estrategia actual para poder iniciar una ejecución nueva. */
-	public static synchronized void destroyExecute() {
-		strategy = null;
+	/** Sustituye la estrategia por una nueva y vacía para poder iniciar una ejecución desde cero. */
+	public static void destroyExecute() {
+		strategy = new Strategy();
 		RandomSearch.listStateReference = null;
 	}
 	
