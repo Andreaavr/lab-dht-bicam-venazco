@@ -20,14 +20,12 @@ import factory_method.FactoryCandidate;
 public class CandidateValue {
 
 	/** El modo de búsqueda. */
-	@SuppressWarnings("unused")
 	private StrategyType strategy;
 
 	/** La factoría de candidatos. */
 	private IFFactoryCandidate ifFactory;
 
 	/** El tipo de candidato. */
-	@SuppressWarnings("unused")
 	private CandidateType typecand;
 
 	/** La lista tabú. */
@@ -107,7 +105,7 @@ public class CandidateValue {
 			}
 			catch (IllegalStateException e) {
 				Strategy strategys = Strategy.getStrategy();
-				if(strategys.getProblem()!=null){
+				if(strategys.hasProblem()){
 					neighborhood = strategys.getProblem().getOperator().generatedNewState(neighborhood.get(0), operatornumber);
 				}
 				return stateCandidate(stateCurrent, typeCandidate, strategy, operatornumber, neighborhood);
@@ -134,5 +132,23 @@ public class CandidateValue {
 	 */
 	public void setTabusolution(TabuSolutions tabusolution) {
 		this.tabusolution = tabusolution;
+	}
+
+	/**
+	 * Devuelve el modo de búsqueda con el que se configuró el selector.
+	 *
+	 * @return el modo de búsqueda (normal o tabú), o {@code null} si no se configuró
+	 */
+	public StrategyType getStrategyType() {
+		return strategy;
+	}
+
+	/**
+	 * Devuelve el tipo de candidato con el que se configuró el selector.
+	 *
+	 * @return el tipo de candidato, o {@code null} si no se configuró
+	 */
+	public CandidateType getTypeCandidate() {
+		return typecand;
 	}
 }

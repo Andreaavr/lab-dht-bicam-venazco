@@ -45,8 +45,48 @@
         <sonar.java.pmd.reportPaths>${project.build.directory}/pmd.xml</sonar.java.pmd.reportPaths>
         <sonar.java.checkstyle.reportPaths>${project.build.directory}/checkstyle-result.xml</sonar.java.checkstyle.reportPaths>
         <sonar.java.spotbugs.reportPaths>${project.build.directory}/spotbugsXml.xml</sonar.java.spotbugs.reportPaths>
-        <!-- La aplicación de demostración no forma parte de la biblioteca -->
-        <sonar.coverage.exclusions>**/demo/**</sonar.coverage.exclusions>
+        <!--
+          Mismas exclusiones que la regla de JaCoCo: generadores que en el código original
+          no pueden ejecutarse de forma aislada (portafolio, PSO, EDA y sus hilos) y el main de la demo.
+        -->
+        <sonar.coverage.exclusions>**/metaheuristics/generators/MultiGenerator.java,**/metaheuristics/generators/ParticleSwarmOptimization.java,**/metaheuristics/generators/Particle.java,**/metaheuristics/generators/DistributionEstimationAlgorithm.java,**/metaheuristics/generators/Instance*.java,**/demo/BiciamDemo.java</sonar.coverage.exclusions>
+        <!--
+          Por si la versión de Checkstyle no aplica el fichero de supresiones, SonarCloud
+          ignora igualmente las reglas de formato importadas (las mismas que en ese fichero).
+        -->
+        <sonar.issue.ignore.multicriteria>f1,f2,f3,f4,f5,f6,f7,f8,f9,f10,f11,f12,f13,f14,f15,f16</sonar.issue.ignore.multicriteria>
+        <sonar.issue.ignore.multicriteria.f1.ruleKey>external_checkstyle:whitespace.FileTabCharacterCheck</sonar.issue.ignore.multicriteria.f1.ruleKey>
+        <sonar.issue.ignore.multicriteria.f1.resourceKey>**/*</sonar.issue.ignore.multicriteria.f1.resourceKey>
+        <sonar.issue.ignore.multicriteria.f2.ruleKey>external_checkstyle:indentation.IndentationCheck</sonar.issue.ignore.multicriteria.f2.ruleKey>
+        <sonar.issue.ignore.multicriteria.f2.resourceKey>**/*</sonar.issue.ignore.multicriteria.f2.resourceKey>
+        <sonar.issue.ignore.multicriteria.f3.ruleKey>external_checkstyle:indentation.CommentsIndentationCheck</sonar.issue.ignore.multicriteria.f3.ruleKey>
+        <sonar.issue.ignore.multicriteria.f3.resourceKey>**/*</sonar.issue.ignore.multicriteria.f3.resourceKey>
+        <sonar.issue.ignore.multicriteria.f4.ruleKey>external_checkstyle:whitespace.WhitespaceAroundCheck</sonar.issue.ignore.multicriteria.f4.ruleKey>
+        <sonar.issue.ignore.multicriteria.f4.resourceKey>**/*</sonar.issue.ignore.multicriteria.f4.resourceKey>
+        <sonar.issue.ignore.multicriteria.f5.ruleKey>external_checkstyle:whitespace.WhitespaceAfterCheck</sonar.issue.ignore.multicriteria.f5.ruleKey>
+        <sonar.issue.ignore.multicriteria.f5.resourceKey>**/*</sonar.issue.ignore.multicriteria.f5.resourceKey>
+        <sonar.issue.ignore.multicriteria.f6.ruleKey>external_checkstyle:whitespace.NoWhitespaceBeforeCheck</sonar.issue.ignore.multicriteria.f6.ruleKey>
+        <sonar.issue.ignore.multicriteria.f6.resourceKey>**/*</sonar.issue.ignore.multicriteria.f6.resourceKey>
+        <sonar.issue.ignore.multicriteria.f7.ruleKey>external_checkstyle:whitespace.MethodParamPadCheck</sonar.issue.ignore.multicriteria.f7.ruleKey>
+        <sonar.issue.ignore.multicriteria.f7.resourceKey>**/*</sonar.issue.ignore.multicriteria.f7.resourceKey>
+        <sonar.issue.ignore.multicriteria.f8.ruleKey>external_checkstyle:whitespace.ParenPadCheck</sonar.issue.ignore.multicriteria.f8.ruleKey>
+        <sonar.issue.ignore.multicriteria.f8.resourceKey>**/*</sonar.issue.ignore.multicriteria.f8.resourceKey>
+        <sonar.issue.ignore.multicriteria.f9.ruleKey>external_checkstyle:whitespace.GenericWhitespaceCheck</sonar.issue.ignore.multicriteria.f9.ruleKey>
+        <sonar.issue.ignore.multicriteria.f9.resourceKey>**/*</sonar.issue.ignore.multicriteria.f9.resourceKey>
+        <sonar.issue.ignore.multicriteria.f10.ruleKey>external_checkstyle:whitespace.OperatorWrapCheck</sonar.issue.ignore.multicriteria.f10.ruleKey>
+        <sonar.issue.ignore.multicriteria.f10.resourceKey>**/*</sonar.issue.ignore.multicriteria.f10.resourceKey>
+        <sonar.issue.ignore.multicriteria.f11.ruleKey>external_checkstyle:sizes.LineLengthCheck</sonar.issue.ignore.multicriteria.f11.ruleKey>
+        <sonar.issue.ignore.multicriteria.f11.resourceKey>**/*</sonar.issue.ignore.multicriteria.f11.resourceKey>
+        <sonar.issue.ignore.multicriteria.f12.ruleKey>external_checkstyle:imports.CustomImportOrderCheck</sonar.issue.ignore.multicriteria.f12.ruleKey>
+        <sonar.issue.ignore.multicriteria.f12.resourceKey>**/*</sonar.issue.ignore.multicriteria.f12.resourceKey>
+        <sonar.issue.ignore.multicriteria.f13.ruleKey>external_checkstyle:whitespace.EmptyLineSeparatorCheck</sonar.issue.ignore.multicriteria.f13.ruleKey>
+        <sonar.issue.ignore.multicriteria.f13.resourceKey>**/*</sonar.issue.ignore.multicriteria.f13.resourceKey>
+        <sonar.issue.ignore.multicriteria.f14.ruleKey>external_checkstyle:RightCurlySame</sonar.issue.ignore.multicriteria.f14.ruleKey>
+        <sonar.issue.ignore.multicriteria.f14.resourceKey>**/*</sonar.issue.ignore.multicriteria.f14.resourceKey>
+        <sonar.issue.ignore.multicriteria.f15.ruleKey>external_checkstyle:RightCurlyAlone</sonar.issue.ignore.multicriteria.f15.ruleKey>
+        <sonar.issue.ignore.multicriteria.f15.resourceKey>**/*</sonar.issue.ignore.multicriteria.f15.resourceKey>
+        <sonar.issue.ignore.multicriteria.f16.ruleKey>external_checkstyle:blocks.LeftCurlyCheck</sonar.issue.ignore.multicriteria.f16.ruleKey>
+        <sonar.issue.ignore.multicriteria.f16.resourceKey>**/*</sonar.issue.ignore.multicriteria.f16.resourceKey>
 
         <!-- Umbral de cobertura de línea exigido por JaCoCo en las clases probadas -->
         <jacoco.line.coverage.minimum>0.80</jacoco.line.coverage.minimum>
@@ -192,6 +232,9 @@
                 <version>${checkstyle.plugin.version}</version>
                 <configuration>
                     <configLocation>google_checks.xml</configLocation>
+                    <!-- Reglas solo de formato desactivadas: ver config/checkstyle/checkstyle-suppressions.xml -->
+                    <suppressionsLocation>config/checkstyle/checkstyle-suppressions.xml</suppressionsLocation>
+                    <suppressionsFileExpression>org.checkstyle.google.suppressionfilter.config</suppressionsFileExpression>
                     <inputEncoding>UTF-8</inputEncoding>
                     <consoleOutput>false</consoleOutput>
                     <violationSeverity>error</violationSeverity>

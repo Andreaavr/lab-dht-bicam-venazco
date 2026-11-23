@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
@@ -60,6 +61,18 @@ class StrategyTest {
         assertSame(strategy, Strategy.getStrategy());
         Strategy.destroyExecute();
         assertNotSame(strategy, Strategy.getStrategy());
+    }
+
+    @Test
+    @DisplayName("getProblem() falla con un mensaje claro si no hay problema asignado")
+    void problemNotAssigned() {
+        Strategy.destroyExecute();
+        Strategy fresh = Strategy.getStrategy();
+        assertFalse(fresh.hasProblem());
+        assertThrows(IllegalStateException.class, fresh::getProblem);
+        assertTrue(fresh.mapGenerators.isEmpty());
+        assertTrue(fresh.getListKey().isEmpty());
+        assertTrue(strategy != fresh);
     }
 
     @Test

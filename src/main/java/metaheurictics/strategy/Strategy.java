@@ -42,7 +42,7 @@ public class Strategy {
 	/** El problema. */
 	private Problem problem;
 	/** El mapa de generadores por tipo. */
-	public SortedMap<GeneratorType, Generator> mapGenerators;
+	public SortedMap<GeneratorType, Generator> mapGenerators = new TreeMap<GeneratorType, Generator>();
 	/** La condición de parada. */
 	private StopExecute stopexecute;
 	/** El actualizador de parámetros. */
@@ -107,7 +107,7 @@ public class Strategy {
 	 *
 	 * @return la estrategia
 	 */
-	public static Strategy getStrategy() {
+	public static synchronized Strategy getStrategy() {
 		if (strategy == null) {
 			strategy = new Strategy();
 		}
@@ -448,10 +448,23 @@ public class Strategy {
 	/**
 	 * Devuelve el problema.
 	 *
-	 * @return el problema
+	 * @return el problema (nunca {@code null})
+	 * @throws IllegalStateException si todavía no se ha asignado un problema con {@link #setProblem(Problem)}
 	 */
 	public Problem getProblem() {
+		if (problem == null) {
+			throw new IllegalStateException("No se ha asignado ningún problema a la estrategia");
+		}
 		return problem;
+	}
+
+	/**
+	 * Indica si ya se ha asignado un problema a la estrategia.
+	 *
+	 * @return {@code true} si hay un problema asignado
+	 */
+	public boolean hasProblem() {
+		return problem != null;
 	}
 
 	/**
@@ -549,7 +562,7 @@ public class Strategy {
 	}
 
 	/** Destruye la estrategia actual para poder iniciar una ejecución nueva. */
-	public static void destroyExecute() {
+	public static synchronized void destroyExecute() {
 		strategy = null;
 		RandomSearch.listStateReference = null;
 	}

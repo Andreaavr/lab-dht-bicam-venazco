@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE suppressions PUBLIC
+        "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
+        "https://checkstyle.org/dtds/suppressions_1_2.dtd">
+<!--
+  Supresiones de Checkstyle (google_checks).
+  BiCIAM se escribió con el formato por defecto de Eclipse (tabuladores, llaves y
+  espaciado propios). Las reglas siguientes son puramente de formato y, aplicadas a
+  ese estilo, generan más de 14.000 avisos que no aportan información sobre la
+  calidad del código. Se mantienen activas todas las demás reglas de Google
+  (nombres, llaves obligatorias, Javadoc, imports, etc.).
+-->
+<suppressions>
+    <suppress checks="FileTabCharacter|Indentation|CommentsIndentation" files=".*"/>
+    <suppress checks="WhitespaceAround|WhitespaceAfter|NoWhitespaceBefore|MethodParamPad|ParenPad|GenericWhitespace|OperatorWrap" files=".*"/>
+    <suppress checks="LineLength|CustomImportOrder|EmptyLineSeparator|RightCurly|LeftCurly" files=".*"/>
+</suppressions>

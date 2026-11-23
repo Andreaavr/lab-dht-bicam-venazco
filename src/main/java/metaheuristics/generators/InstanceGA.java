@@ -13,7 +13,7 @@ public class InstanceGA implements Runnable {
 	private static final Logger LOGGER = Logger.getLogger(InstanceGA.class.getName());
 
 	/** El indicador de tarea terminada. */
-	private boolean terminate = false;
+	private volatile boolean terminate = false;
 	
 	/** Ejecuta la tarea. */
 	public void run() {

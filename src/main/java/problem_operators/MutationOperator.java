@@ -5,6 +5,7 @@ import java.util.List;
 
 import metaheurictics.strategy.Strategy;
 
+import problem.definition.Codification;
 import problem.definition.Operator;
 import problem.definition.State;
 
@@ -32,14 +33,24 @@ public class MutationOperator extends Operator {
 	}
 
 	/**
-	 * Genera estados aleatorios del problema.
+	 * Genera estados aleatorios del problema: cada variable toma un valor aleatorio
+	 * de la codificación.
 	 *
 	 * @param operatornumber número de vecinos o estados a generar
-	 * @return la lista de estados generados
+	 * @return la lista de estados generados (nunca {@code null})
 	 */
 	@Override
 	public List<State> generateRandomState(Integer operatornumber) {
-		return null;
+		List<State> states = new ArrayList<State>();
+		Codification codification = Strategy.getStrategy().getProblem().getCodification();
+		for (int i = 0; i < operatornumber; i++) {
+			ArrayList<Object> code = new ArrayList<Object>();
+			for (int key = 0; key < codification.getVariableCount(); key++) {
+				code.add(codification.getVariableAleatoryValue(key));
+			}
+			states.add(new State(code));
+		}
+		return states;
 	}
 
 }

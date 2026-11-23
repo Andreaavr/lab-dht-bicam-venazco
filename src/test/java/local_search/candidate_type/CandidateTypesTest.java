@@ -107,6 +107,8 @@ class CandidateTypesTest {
         State result = value.stateCandidate(one, CandidateType.GreaterCandidate, StrategyType.NORMAL, 3,
                 List.of(one, three, two));
         assertSame(three, result);
+        assertSame(StrategyType.NORMAL, value.getStrategyType());
+        assertSame(CandidateType.GreaterCandidate, value.getTypeCandidate());
         assertNotNull(value.getTabusolution());
         TabuSolutions tabu = new TabuSolutions();
         value.setTabusolution(tabu);
