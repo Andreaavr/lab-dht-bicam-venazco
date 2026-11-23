@@ -62,7 +62,7 @@ public class MultiGenerator extends Generator implements Cloneable {
 		State stateREF = new State(Strategy.getStrategy().getProblem().getState());
 		listStateReference.add(stateREF);
 		for (int i = 0; i < listGenerators.length; i++) {
-			if ((listGenerators[i].getType().equals(GeneratorType.HillClimbing)) || (listGenerators[i].getType().equals(GeneratorType.RandomSearch)) || (listGenerators[i].getType().equals(GeneratorType.TabuSearch)) || (listGenerators[i].getType().equals(GeneratorType.SimulatedAnnealing) || (listGenerators[i].getType().equals(GeneratorType.LimitThreshold)))){
+			if ((listGenerators[i].getType().equals(GeneratorType.HillClimbing)) || (listGenerators[i].getType().equals(GeneratorType.HillClimbingRestart)) || (listGenerators[i].getType().equals(GeneratorType.RandomSearch)) || (listGenerators[i].getType().equals(GeneratorType.TabuSearch)) || (listGenerators[i].getType().equals(GeneratorType.SimulatedAnnealing) || (listGenerators[i].getType().equals(GeneratorType.LimitThreshold)))){
 				listGenerators[i].setInitialReference(stateREF);
 			}
 		}

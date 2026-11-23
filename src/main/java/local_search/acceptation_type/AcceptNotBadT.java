@@ -30,7 +30,7 @@ public class AcceptNotBadT extends AcceptableCandidate{
 			else
 				accept = false;
 		} else {
-			double result_min = (stateCandidate.getEvaluation().get(0) - stateCurrent.getEvaluation().get(0)) / SimulatedAnnealing.tinitial;
+			double result_min = (stateCurrent.getEvaluation().get(0) - stateCandidate.getEvaluation().get(0)) / SimulatedAnnealing.tinitial;
 			if ((stateCandidate.getEvaluation().get(0) <= stateCurrent.getEvaluation().get(0))
 					|| (RandomUtil.nextDouble() < Math.exp(result_min)))
 				accept = true;

@@ -105,6 +105,20 @@
                             <goal>check</goal>
                         </goals>
                         <configuration>
+                            <!--
+                              La regla se aplica a las clases probadas. Se excluyen los
+                              generadores que en el código original no pueden ejecutarse de
+                              forma aislada (portafolio MultiGenerator, PSO, EDA y sus hilos
+                              auxiliares) y el punto de entrada de la demo.
+                            -->
+                            <excludes>
+                                <exclude>metaheuristics/generators/MultiGenerator.class</exclude>
+                                <exclude>metaheuristics/generators/ParticleSwarmOptimization.class</exclude>
+                                <exclude>metaheuristics/generators/Particle.class</exclude>
+                                <exclude>metaheuristics/generators/DistributionEstimationAlgorithm.class</exclude>
+                                <exclude>metaheuristics/generators/Instance*.class</exclude>
+                                <exclude>demo/BiciamDemo*.class</exclude>
+                            </excludes>
                             <rules>
                                 <rule>
                                     <element>BUNDLE</element>
@@ -112,7 +126,7 @@
                                         <limit>
                                             <counter>LINE</counter>
                                             <value>COVEREDRATIO</value>
-                                            <minimum>0.0</minimum>
+                                            <minimum>${jacoco.line.coverage.minimum}</minimum>
                                         </limit>
                                     </limits>
                                 </rule>

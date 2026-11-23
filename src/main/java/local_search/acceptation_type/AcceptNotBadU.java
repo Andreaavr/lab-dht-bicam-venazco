@@ -24,8 +24,8 @@ public class AcceptNotBadU extends AcceptableCandidate{
 			else
 				accept = false;
 		} else {
-			Double result_min = stateCurrent.getEvaluation().get(0) - stateCandidate.getEvaluation().get(0);
-			if (result_min > Strategy.getStrategy().getThreshold())
+			Double result_min = stateCandidate.getEvaluation().get(0) - stateCurrent.getEvaluation().get(0);
+			if (result_min < Strategy.getStrategy().getThreshold())
 				accept = true;
 			else
 				accept = false;

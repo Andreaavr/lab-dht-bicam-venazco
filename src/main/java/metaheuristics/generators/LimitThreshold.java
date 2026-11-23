@@ -1,6 +1,7 @@
 package metaheuristics.generators;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 import local_search.acceptation_type.AcceptableCandidate;
 import metaheurictics.strategy.Strategy;
@@ -31,7 +32,8 @@ public class LimitThreshold extends Generator{
 	private State stateReferenceLT;
     private IFFactoryAcceptCandidate ifacceptCandidate;
 	private GeneratorType typeGenerator;
-	//private List<State> listStateReference = new ArrayList<State>(); // lista de estados referencias por los que va pasando el algoritmo
+	/** Lista de estados de referencia por los que va pasando el algoritmo. */
+	private List<State> listStateReference = new ArrayList<State>();
 	private float weight;
 	
 	//problemas dinamicos
@@ -112,7 +114,8 @@ public class LimitThreshold extends Generator{
 
 	@Override
 	public List<State> getReferenceList() {
-		return null;
+		listStateReference.add(stateReferenceLT);
+		return listStateReference;
 	}
 
 	@Override

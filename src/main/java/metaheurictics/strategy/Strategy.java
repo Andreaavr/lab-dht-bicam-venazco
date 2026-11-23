@@ -419,7 +419,7 @@ public class Strategy {
 		}
 	}
 	public void updateRefGenerator(Generator generator) {
-		if(generator.getType().equals(GeneratorType.HillClimbing) || generator.getType().equals(GeneratorType.TabuSearch) || generator.getType().equals(GeneratorType.RandomSearch) || generator.getType().equals(GeneratorType.SimulatedAnnealing)){
+		if(generator.getType().equals(GeneratorType.HillClimbing) || generator.getType().equals(GeneratorType.HillClimbingRestart) || generator.getType().equals(GeneratorType.TabuSearch) || generator.getType().equals(GeneratorType.RandomSearch) || generator.getType().equals(GeneratorType.SimulatedAnnealing)){
 			double evaluation = getProblem().getFunction().get(0).Evaluation(generator.getReference());
 			generator.getReference().getEvaluation().set(0, evaluation);
 			
