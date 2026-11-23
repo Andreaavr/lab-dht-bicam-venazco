@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Filtro de inclusión para la ejecución "spotbugs-security-check".
+  Solo se tienen en cuenta los hallazgos de la categoría SECURITY
+  (detectores de SpotBugs y del plugin FindSecBugs). Cualquier hallazgo
+  de esta categoría hace fallar la build en la fase verify.
+  El análisis completo (todas las categorías) se obtiene con:
+      mvn compile spotbugs:spotbugs   ó   mvn compile spotbugs:gui
+-->
+<FindBugsFilter
+        xmlns="https://github.com/spotbugs/filter/3.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://github.com/spotbugs/filter/3.0.0 https://raw.githubusercontent.com/spotbugs/spotbugs/3.1.0/spotbugs/etc/findbugsfilter.xsd">
+    <Match>
+        <Bug category="SECURITY"/>
+    </Match>
+</FindBugsFilter>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Supresiones de OWASP Dependency-Check.
+  Añada aquí únicamente falsos positivos justificados, con un comentario
+  que explique el motivo y una fecha de caducidad (atributo "until").
+-->
+<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">
+</suppressions>
