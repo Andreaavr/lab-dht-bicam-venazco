@@ -12,7 +12,6 @@ public class MultiObjetivoPuro extends SolutionMethod {
 
 	@Override
 	public void evaluationState(State state) {
-		// TODO Auto-generated method stub
 		double tempEval = -1;
 		ArrayList<Double> evaluation = new ArrayList<Double>(Strategy.getStrategy().getProblem().getFunction().size());
 		for (int i = 0; i < Strategy.getStrategy().getProblem().getFunction().size(); i++)
@@ -38,7 +37,6 @@ public class MultiObjetivoPuro extends SolutionMethod {
 			}
 			evaluation.add(tempEval);
 		}
-		//evaluation.add( (double) -1);
 		state.setEvaluation(evaluation);
 	}
 

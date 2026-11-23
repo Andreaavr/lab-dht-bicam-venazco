@@ -23,7 +23,7 @@ public class InstanceGA implements Runnable {
 		}
 		boolean find = false;
 		int i = 0;
-		while (find == false) {
+		while (!find) {
 			if(MultiGenerator.getListGenerators()[i].getType().equals(GeneratorType.GeneticAlgorithm)){
 				MultiGenerator.getListGenerators()[i] = generatorGA;
 				find = true;

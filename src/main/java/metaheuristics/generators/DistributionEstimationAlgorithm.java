@@ -1,27 +1,28 @@
 package metaheuristics.generators;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
-
 import metaheurictics.strategy.Strategy;
-
-import problem.definition.State;
 import problem.definition.Problem.ProblemType;
-
-import evolutionary_algorithms.complement.DistributionType;
 import evolutionary_algorithms.complement.FatherSelection;
 import evolutionary_algorithms.complement.Replace;
 import evolutionary_algorithms.complement.ReplaceType;
 import evolutionary_algorithms.complement.Sampling;
-import evolutionary_algorithms.complement.SamplingType;
 import evolutionary_algorithms.complement.SelectionType;
-import factory_interface.IFFSampling;
-import factory_interface.IFFactoryFatherSelection;
-import factory_interface.IFFactoryReplace;
 import factory_method.FactoryFatherSelection;
 import factory_method.FactoryReplace;
 import factory_method.FactorySampling;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+import problem.definition.State;
+
+import evolutionary_algorithms.complement.DistributionType;
+import evolutionary_algorithms.complement.SamplingType;
+import factory_interface.IFFSampling;
+import factory_interface.IFFactoryFatherSelection;
+import factory_interface.IFFactoryReplace;
 
 public class DistributionEstimationAlgorithm extends Generator {
 
@@ -34,12 +35,10 @@ public class DistributionEstimationAlgorithm extends Generator {
 	private DistributionType distributionType;
 	private SamplingType Samplingtype;
 	
-//	private ReplaceType replaceType;
 	public static ReplaceType replaceType;
 	public static SelectionType selectionType;
 	
 	private GeneratorType generatorType;
-	//private ProblemState candidate;
 	public static int truncation;
 	public static int countRef = 0;
 	private float weight;
@@ -55,9 +54,6 @@ public class DistributionEstimationAlgorithm extends Generator {
 	public DistributionEstimationAlgorithm() {
 		super();
 		this.referenceList = getListStateRef(); // llamada al método que devuelve la lista. 
-//		this.selectionType = SelectionType.Truncation;
-		//this.replaceType = ReplaceType.Generational;
-//		this.replaceType = ReplaceType.Smallest;
 		this.generatorType = GeneratorType.DistributionEstimationAlgorithm;
 		this.distributionType = DistributionType.Univariate;
 		this.Samplingtype = SamplingType.ProbabilisticSampling;
@@ -82,7 +78,6 @@ public class DistributionEstimationAlgorithm extends Generator {
 	@Override
 	public State generate(Integer operatornumber) throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException,	NoSuchMethodException {
 		//********************selection*****************************
-		//ProblemState candidate = new ProblemState();
 		/*State candidate = new State();//(State) Strategy.getStrategy().getProblem().getState().clone()
 		List<State> fathers = new ArrayList<State>();
 		fathers = getfathersList();
@@ -97,7 +92,6 @@ public class DistributionEstimationAlgorithm extends Generator {
     	List<State> ind = samplingG.sampling(probability, referenceList.size());
     	sonList = ind;
     	candidate = MaxValue(ind);
-       // this.candidate = candidate;
     	return candidate;*/	
     	
     	//***************************version 1.0
@@ -121,9 +115,6 @@ public class DistributionEstimationAlgorithm extends Generator {
     	else{
     		candidate = ind.get(0);
     	}
-//    	sonList = ind;
-    	//listcandidate.add(candidate);
-       // this.candidate = candidate;
     	return candidate;
     	
     }
@@ -177,7 +168,6 @@ public class DistributionEstimationAlgorithm extends Generator {
 		Boolean found = false;
 		List<String> key = Strategy.getStrategy().getListKey();
 		int count = 0;
-		//if(Strategy.getStrategy().Statistics.getAllStates().size() == 0){
 		/*if(RandomSearch.listStateReference.size() == 0){
 			return this.referenceList = new ArrayList<State>();
 		}*/
@@ -187,14 +177,6 @@ public class DistributionEstimationAlgorithm extends Generator {
 				DistributionEstimationAlgorithm generator = (DistributionEstimationAlgorithm)Strategy.getStrategy().mapGenerators.get(keyGenerator);
 				if(generator.getListReference().isEmpty()){
 					referenceList.addAll(RandomSearch.listStateReference);
-					//for (int j = 1; j < Strategy.getStrategy().Statistics.getAllStates().size(); j++) {
-//					for (int j = 1; j < RandomSearch.listStateReference.size(); j++) {
-//						//if((Strategy.getStrategy().Statistics.getAllStates().get(j).getTypeGenerator().equals(GeneratorType.RandomSearch)) && (referenceList.size()!= countRef)){
-//						if(referenceList.size() != countRef){
-//							//State problemState = Strategy.getStrategy().Statistics.getAllStates().get(j);
-//							referenceList.add(RandomSearch.listStateReference.get(j));
-//						}
-//					}  
 				}
 				else{
 					referenceList = generator.getListReference();
@@ -238,7 +220,7 @@ public class DistributionEstimationAlgorithm extends Generator {
 	public boolean awardUpdateREF(State stateCandidate) {
 		boolean find = false;
 		int i = 0;
-		while (find == false && i < this.referenceList.size()) {
+		while (!find && i < this.referenceList.size()) {
 			if(stateCandidate.equals(this.referenceList.get(i)))
 				find = true;
 			else i++;
@@ -248,13 +230,11 @@ public class DistributionEstimationAlgorithm extends Generator {
 
 	@Override
 	public float getWeight() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public void setWeight(float weight) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -268,19 +248,16 @@ public class DistributionEstimationAlgorithm extends Generator {
 
 	@Override
 	public int[] getListCountBetterGender() {
-		// TODO Auto-generated method stub
 		return this.listCountBetterGender;
 	}
 
 	@Override
 	public int[] getListCountGender() {
-		// TODO Auto-generated method stub
 		return this.listCountGender;
 	}
 
 	@Override
 	public float[] getTrace() {
-		// TODO Auto-generated method stub
 		return this.listTrace;
 	}
 

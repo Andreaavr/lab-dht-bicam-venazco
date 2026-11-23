@@ -1,6 +1,7 @@
 package metaheuristics.generators;
 
 import java.util.logging.Level;
+
 import java.util.logging.Logger;
 
 import factory_method.FactoryGenerator;
@@ -23,7 +24,7 @@ public class InstanceEE implements Runnable {
 		}
 		boolean find = false;
 		int i = 0;
-		while (find == false) {
+		while (!find) {
 			if(MultiGenerator.getListGenerators()[i].getType().equals(GeneratorType.EvolutionStrategies)){
 				MultiGenerator.getListGenerators()[i] = generatorEE;
 				find = true;

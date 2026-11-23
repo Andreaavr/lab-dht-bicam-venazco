@@ -3,18 +3,19 @@ package metaheuristics.generators;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import local_search.acceptation_type.AcceptableCandidate;
+import metaheurictics.strategy.Strategy;
+import factory_method.FactoryAcceptCandidate;
+
 
 import local_search.acceptation_type.AcceptType;
-import local_search.acceptation_type.AcceptableCandidate;
 import local_search.candidate_type.CandidateType;
 import local_search.candidate_type.CandidateValue;
 import local_search.complement.StrategyType;
-import metaheurictics.strategy.Strategy;
 
 import problem.definition.State;
 
 import factory_interface.IFFactoryAcceptCandidate;
-import factory_method.FactoryAcceptCandidate;
 
 public class RandomSearch extends Generator {
 
@@ -53,7 +54,6 @@ public class RandomSearch extends Generator {
 	
 	@Override
 	public State generate(Integer operatornumber) throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-		//ArrayList<State>list =new ArrayList<State>();
 		List<State> neighborhood = new ArrayList<State>();
 		neighborhood = Strategy.getStrategy().getProblem().getOperator().generateRandomState(operatornumber);
 	    State statecandidate = candidatevalue.stateCandidate(stateReferenceRS, typeCandidate, strategy, operatornumber, neighborhood);
@@ -79,7 +79,6 @@ public class RandomSearch extends Generator {
 		Boolean accept = candidate.acceptCandidate(stateReferenceRS, stateCandidate);
 		if(accept.equals(true))
 		  stateReferenceRS = stateCandidate;
-//		getReferenceList();
 	}
 
 
@@ -104,44 +103,37 @@ public class RandomSearch extends Generator {
 
 	@Override
 	public List<State> getSonList() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public boolean awardUpdateREF(State stateCandidate) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 
 	@Override
 	public float getWeight() {
-		// TODO Auto-generated method stub
 		return this.weight;
 	}
 
 	@Override
 	public void setWeight(float weight) {
-		// TODO Auto-generated method stub
 		this.weight = weight;
 	}
 
 	@Override
 	public int[] getListCountBetterGender() {
-		// TODO Auto-generated method stub
 		return this.listCountBetterGender;
 	}
 
 	@Override
 	public int[] getListCountGender() {
-		// TODO Auto-generated method stub
 		return this.listCountGender;
 	}
 
 	@Override
 	public float[] getTrace() {
-		// TODO Auto-generated method stub
 		return this.listTrace;
 	}
 

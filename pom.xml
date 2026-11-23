@@ -30,6 +30,23 @@
         <spotbugs.plugin.version>4.9.3.0</spotbugs.plugin.version>
         <findsecbugs.version>1.14.0</findsecbugs.version>
         <dependency-check.plugin.version>12.1.0</dependency-check.plugin.version>
+        <sonar.plugin.version>5.1.0.4751</sonar.plugin.version>
+
+        <!-- ============ SonarCloud ============ -->
+        <!-- Sustituya los valores por los de su organización/proyecto en sonarcloud.io -->
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+        <sonar.organization>CAMBIAR-organizacion</sonar.organization>
+        <sonar.projectKey>CAMBIAR-organizacion_lab-dht-bicam-apellido</sonar.projectKey>
+        <sonar.projectName>lab-dht-bicam-apellido</sonar.projectName>
+        <sonar.sourceEncoding>UTF-8</sonar.sourceEncoding>
+        <!-- Cobertura generada por JaCoCo -->
+        <sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+        <!-- Informes externos de los plugins de la Fase 1 -->
+        <sonar.java.pmd.reportPaths>${project.build.directory}/pmd.xml</sonar.java.pmd.reportPaths>
+        <sonar.java.checkstyle.reportPaths>${project.build.directory}/checkstyle-result.xml</sonar.java.checkstyle.reportPaths>
+        <sonar.java.spotbugs.reportPaths>${project.build.directory}/spotbugsXml.xml</sonar.java.spotbugs.reportPaths>
+        <!-- La aplicación de demostración no forma parte de la biblioteca -->
+        <sonar.coverage.exclusions>**/demo/**</sonar.coverage.exclusions>
 
         <!-- Umbral de cobertura de línea exigido por JaCoCo en las clases probadas -->
         <jacoco.line.coverage.minimum>0.80</jacoco.line.coverage.minimum>
@@ -195,6 +212,15 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+
+            <!-- ============================================================ -->
+            <!-- SonarCloud: mvn sonar:sonar -Dsonar.token=...                  -->
+            <!-- ============================================================ -->
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>${sonar.plugin.version}</version>
             </plugin>
 
             <!-- ============================================================ -->

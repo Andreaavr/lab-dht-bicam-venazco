@@ -1,0 +1,67 @@
+# Integración continua: compila, ejecuta pruebas y análisis, y publica en SonarCloud.
+name: Build, análisis y SonarCloud
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    types: [ opened, synchronize, reopened ]
+
+jobs:
+  build:
+    name: Build y análisis
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # SonarCloud necesita el historial completo
+
+      - name: Configurar JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+
+      - name: Caché de la base de datos del NVD (OWASP)
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository/org/owasp/dependency-check-data
+          key: ${{ runner.os }}-nvd-${{ github.run_id }}
+          restore-keys: ${{ runner.os }}-nvd-
+
+      - name: Caché de SonarCloud
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      # Pruebas + JaCoCo + PMD + Checkstyle + SpotBugs/FindSecBugs + OWASP
+      - name: mvn verify
+        env:
+          NVD_API_KEY: ${{ secrets.NVD_API_KEY }}
+        run: mvn -B verify
+
+      # Informe completo de SpotBugs (todas las categorías) para importarlo en SonarCloud
+      - name: Informe completo de SpotBugs
+        run: mvn -B spotbugs:spotbugs
+
+      - name: Análisis en SonarCloud
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn -B org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+
+      - name: Publicar informes como artefacto
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: informes-calidad
+          path: |
+            target/site/jacoco/
+            target/dependency-check-report.*
+            target/pmd.xml
+            target/checkstyle-result.xml
+            target/spotbugsXml.xml
+            target/surefire-reports/

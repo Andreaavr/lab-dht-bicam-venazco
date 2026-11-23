@@ -92,43 +92,36 @@ public class MultiobjectiveStochasticHillClimbing extends Generator{
 
 	@Override
 	public List<State> getSonList() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public boolean awardUpdateREF(State stateCandidate) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public float getWeight() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public void setWeight(float weight) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public float[] getTrace() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public int[] getListCountBetterGender() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public int[] getListCountGender() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

@@ -1,16 +1,17 @@
 package local_search.complement;
 
-import factory_interface.IFFactoryGenerator;
 import factory_method.FactoryGenerator;
-
-import java.lang.reflect.InvocationTargetException;
-
 import metaheurictics.strategy.Strategy;
 import metaheuristics.generators.DistributionEstimationAlgorithm;
 import metaheuristics.generators.EvolutionStrategies;
 import metaheuristics.generators.GeneratorType;
 import metaheuristics.generators.GeneticAlgorithm;
 import metaheuristics.generators.ParticleSwarmOptimization;
+
+import factory_interface.IFFactoryGenerator;
+
+import java.lang.reflect.InvocationTargetException;
+
 
 
 public class UpdateParameter {

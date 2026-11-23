@@ -2,23 +2,24 @@ package metaheuristics.generators;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import local_search.acceptation_type.AcceptableCandidate;
+import metaheurictics.strategy.Strategy;
+import problem.definition.Problem;
+import problem.definition.Problem.ProblemType;
+import factory_method.FactoryAcceptCandidate;
+
 
 
 import local_search.acceptation_type.AcceptType;
-import local_search.acceptation_type.AcceptableCandidate;
 import local_search.candidate_type.CandidateType;
 import local_search.candidate_type.CandidateValue;
 import local_search.complement.StrategyType;
-import metaheurictics.strategy.Strategy;
 
-import problem.definition.Problem;
 import problem.definition.State;
-import problem.definition.Problem.ProblemType;
 
 
 
 import factory_interface.IFFactoryAcceptCandidate;
-import factory_method.FactoryAcceptCandidate;
 
 
 public class LimitThreshold extends Generator{
@@ -84,10 +85,8 @@ public class LimitThreshold extends Generator{
 		AcceptableCandidate candidate = ifacceptCandidate.createAcceptCandidate(typeAcceptation);
 		Boolean accept = candidate.acceptCandidate(stateReferenceLT , stateCandidate);
 		if(accept.equals(true)){
-			//listStateReference.add(stateCandidate);
 			stateReferenceLT = stateCandidate;
 		}
-		//else listStateReference.add(stateReferenceHC);
 	}
 	
 
@@ -118,7 +117,6 @@ public class LimitThreshold extends Generator{
 
 	@Override
 	public List<State> getSonList() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -128,37 +126,31 @@ public class LimitThreshold extends Generator{
 
 	@Override
 	public boolean awardUpdateREF(State stateCandidate) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	public float getWeight() {
-		// TODO Auto-generated method stub
 		return this.weight;
 	}
 
 	@Override
 	public void setWeight(float weight) {
-		// TODO Auto-generated method stub
 		this.weight = weight;
 	}
 
 
 	@Override
 	public int[] getListCountBetterGender() {
-		// TODO Auto-generated method stub
 		return this.listCountBetterGender;
 	}
 
 	@Override
 	public int[] getListCountGender() {
-		// TODO Auto-generated method stub
 		return this.listCountGender;
 	}
 
 	@Override
 	public float[] getTrace() {
-		// TODO Auto-generated method stub
 		return this.listTrace;
 	}
 

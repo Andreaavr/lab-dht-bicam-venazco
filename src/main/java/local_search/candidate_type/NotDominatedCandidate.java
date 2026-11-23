@@ -24,10 +24,10 @@ public class NotDominatedCandidate extends SearchCandidate {
 			State stateB = new State();
 			Dominance dominance = new Dominance();
 			for (int i = 1; i < listNeighborhood.size(); i++) {
-				while(stop == false){
+				while(!stop){
 					stateB = listNeighborhood.get(i);
 					Strategy.getStrategy().getProblem().Evaluate(stateB);
-					if(dominance.dominance(stateB, stateA) == true){
+					if(dominance.dominance(stateB, stateA)){
 						stateA = stateB;
 					}else{
 						stop = true;

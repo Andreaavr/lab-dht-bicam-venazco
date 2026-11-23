@@ -14,7 +14,7 @@ public class SmallerCandidate extends SearchCandidate {
 
 	@Override
 	public State stateSearch(List<State> listNeighborhood) throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-		State stateSmaller = null;
+		State stateSmaller = listNeighborhood.get(0);
 		if(listNeighborhood.size() > 1){
 			double counter = 0;
 			double currentCount = listNeighborhood.get(0).getEvaluation().get(0);
@@ -27,7 +27,6 @@ public class SmallerCandidate extends SearchCandidate {
 				counter = 0;
 			}
 		}
-		else stateSmaller = listNeighborhood.get(0);
 		return stateSmaller;
 	}
 }

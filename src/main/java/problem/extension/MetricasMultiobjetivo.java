@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-
 import problem.definition.State;
+
+
 
 public class MetricasMultiobjetivo {
 
@@ -19,7 +20,6 @@ public class MetricasMultiobjetivo {
 			}
 		}
 		double total = tasaError/solutionsFPcurrent.size();
-		//System.out.println(solutionsFP.size() + "/" + solutions.size() + "/" + total);
 		return total;
 	}
 	
@@ -33,6 +33,7 @@ public class MetricasMultiobjetivo {
 			//Calculando la distancia euclideana entre solutionVO y el miembro más cercano del frente de Pareto verdadero
 			min = 1000;
 			for (int j = 0; j < solutionsFPtrue.size();j++) { 
+				distancia = 0;
 				for (int j2 = 0; j2 < solutionVO.getEvaluation().size(); j2++) {
 					State solutionFPV = solutionsFPtrue.get(j);
 					// porq elevar la distancia al cuadrado
@@ -46,7 +47,6 @@ public class MetricasMultiobjetivo {
 			distanciaGeneracional += min;
 		}
 		double total = Math.sqrt(distanciaGeneracional)/solutionsFPcurrent.size();
-		//System.out.println(total);
 		return total;
 	}
 
@@ -60,6 +60,7 @@ public class MetricasMultiobjetivo {
 			min = 1000;
 			for (Iterator<State> iterator = solutions.iterator(); iterator.hasNext();) {
 				State solVO = (State) iterator.next();
+				distancia = 0;
 				for (int i = 0; i < solutionVO.getEvaluation().size(); i++) {
 					if(!solutionVO.getEvaluation().equals(solVO.getEvaluation())){
 						distancia += (solutionVO.getEvaluation().get(i)- solVO.getEvaluation().get(i));
@@ -87,13 +88,12 @@ public class MetricasMultiobjetivo {
 		if(solutions.size() > 1){
 			dispersion = Math.sqrt((1.0/(solutions.size()-1))*sumDistancias);
 		}
-		//System.out.println(dispersion);
 		return dispersion;
 	}
 	private boolean Contains(State solA, List<State> solutions){
 		int i = 0;
 		boolean result = false;
-		while(i<solutions.size()&& result==false){
+		while(i<solutions.size()&& !result){
 			if(solutions.get(i).getEvaluation().equals(solA.getEvaluation()))
 				result=true;
 			else

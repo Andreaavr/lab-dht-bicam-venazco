@@ -1,14 +1,15 @@
 package metaheuristics.generators;
 
 import java.lang.reflect.InvocationTargetException;
+import metaheurictics.strategy.Strategy;
+import problem.definition.Problem.ProblemType;
+
 import java.util.ArrayList;
 import java.util.List;
 
 
-import metaheurictics.strategy.Strategy;
 
 
-import problem.definition.Problem.ProblemType;
 import problem.definition.State;
 
 public class ParticleSwarmOptimization extends Generator {
@@ -41,7 +42,6 @@ public class ParticleSwarmOptimization extends Generator {
 		super();
 		countRef = coutSwarm * countParticleBySwarm;
 		this.setListParticle(getListStateRef()); 
-//		listStateReference = new ArrayList<State>(Strategy.getStrategy().listBest);
 		this.generatorType = GeneratorType.ParticleSwarmOptimization;
 		this.weight = 50;
 		lBest = new State[coutSwarm];
@@ -60,7 +60,6 @@ public class ParticleSwarmOptimization extends Generator {
 	public State generate(Integer operatornumber) throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException{ //PSO
 		if (countParticle >= countRef)
 			countParticle = 0;
-//		System.out.println("Contador de particulas: " + countParticle + " Contador de iteraciones " + Strategy.getStrategy().getCountCurrent());
 		listParticle.get(countParticle).generate(1);
 	    return listParticle.get(countParticle).getStateActual();
 	}
@@ -233,61 +232,51 @@ public class ParticleSwarmOptimization extends Generator {
 
 	@Override
 	public void setInitialReference(State stateInitialRef) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public GeneratorType getType() {
-		// TODO Auto-generated method stub
 		return this.generatorType;
 	}
 
 	@Override
 	public List<State> getReferenceList() {
-		// TODO Auto-generated method stub
 		return this.listStateReference;
 	}
 
 	@Override
 	public List<State> getSonList() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public boolean awardUpdateREF(State stateCandidate) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public void setWeight(float weight) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public float getWeight() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public int[] getListCountBetterGender() {
-		// TODO Auto-generated method stub
 		return this.listCountBetterGender;
 	}
 
 	@Override
 	public int[] getListCountGender() {
-		// TODO Auto-generated method stub
 		return this.listCountGender;
 	}
 
 	@Override
 	public float[] getTrace() {
-		// TODO Auto-generated method stub
 		return this.listTrace;
 	}
 

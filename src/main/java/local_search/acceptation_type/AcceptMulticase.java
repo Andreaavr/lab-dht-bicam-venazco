@@ -2,6 +2,7 @@ package local_search.acceptation_type;
 
 import util.RandomUtil;
 
+
 import metaheuristics.generators.*;
 import metaheurictics.strategy.*;
 
@@ -13,7 +14,6 @@ public class AcceptMulticase extends AcceptableCandidate {
 
 	@Override
 	public Boolean acceptCandidate(State stateCurrent, State stateCandidate) {
-		// TODO Auto-generated method stub
 		Boolean accept = false;
 		List<State> list = Strategy.getStrategy().listRefPoblacFinal;
 		
@@ -25,11 +25,11 @@ public class AcceptMulticase extends AcceptableCandidate {
 		Dominance dominance= new Dominance();
 		//Verificando si la solución candidata domina a la solución actual
 		//Si la solución candidata domina a la solución actual
-		if(dominance.dominance(stateCandidate, stateCurrent) == true){
+		if(dominance.dominance(stateCandidate, stateCurrent)){
 			//Se asigna como solución actual la solución candidata con probabilidad 1
 			pAccept = 1; 
 		}
-		else if(dominance.dominance(stateCandidate, stateCurrent)== false){	
+		else if(!dominance.dominance(stateCandidate, stateCurrent)){	
 			if(DominanceCounter(stateCandidate, list) > 0){
 				pAccept = 1;
 			}
@@ -53,7 +53,7 @@ public class AcceptMulticase extends AcceptableCandidate {
 				pAccept = Math.exp(-(1-total)/T);
 			}
 			else if (DominanceRank(stateCandidate, list) > DominanceRank(stateCurrent, list) && DominanceRank(stateCurrent, list)!= 0){
-				float value = DominanceRank(stateCandidate, list)/DominanceRank(stateCurrent, list);
+				float value = (float) DominanceRank(stateCandidate, list) / DominanceRank(stateCurrent, list);
 				pAccept = Math.exp(-(value+1)/T);
 			}
 			else{
@@ -85,7 +85,7 @@ public class AcceptMulticase extends AcceptableCandidate {
 		for (int i = 0; i < list.size(); i++) {
 			State solution = list.get(i);
 			Dominance dominance = new Dominance();
-			if(dominance.dominance(stateCandidate, solution) == true)
+			if(dominance.dominance(stateCandidate, solution))
 				counter++;
 		}
 		return counter;
@@ -96,7 +96,7 @@ public class AcceptMulticase extends AcceptableCandidate {
 		for (int i = 0; i < list.size(); i++) {
 			State solution = list.get(i);
 			Dominance dominance = new Dominance();
-			if(dominance.dominance(solution, stateCandidate) == true){
+			if(dominance.dominance(solution, stateCandidate)){
 				rank++;
 			}
 		}

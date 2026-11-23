@@ -1,14 +1,15 @@
 package metaheuristics.generators;
 
 import util.RandomUtil;
+import java.util.List;
+import metaheurictics.strategy.Strategy;
+import problem.definition.Problem.ProblemType;
+
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.List;
 
-import metaheurictics.strategy.Strategy;
 
-import problem.definition.Problem.ProblemType;
 import problem.definition.State;
 
 public class Particle extends Generator {
@@ -62,7 +63,6 @@ public class Particle extends Generator {
 			ClassNotFoundException, InstantiationException,
 			IllegalAccessException, InvocationTargetException,
 			NoSuchMethodException {
-		// TODO Auto-generated method stub
 		
 		ArrayList<Object> actualVelocity = UpdateVelocity();
 		ArrayList<Object> newCode = UpdateCode(actualVelocity);
@@ -90,7 +90,7 @@ public class Particle extends Generator {
     		// cumulo donde se encuentra la particula
     		int swarm = ParticleSwarmOptimization.countParticle / ParticleSwarmOptimization.countParticleBySwarm; 
            	inertia = w * (Double)velocity.get(i);  
-           	if(ParticleSwarmOptimization.binary == true){
+           	if(ParticleSwarmOptimization.binary){
            		cognitive = (Double)(ParticleSwarmOptimization.learning1 * rand1 * ((Integer)(this.statePBest.getCode().get(i)) - (Integer)(stateActual.getCode().get(i))));
            		social = (Double)(ParticleSwarmOptimization.learning2 * rand2 * (((Integer)(((State) ParticleSwarmOptimization.lBest[swarm]).getCode().get(i))) - ((Integer)(stateActual.getCode().get(i)))));
            	}
@@ -100,12 +100,7 @@ public class Particle extends Generator {
            	}
         	actualVelocity.add(ParticleSwarmOptimization.constriction*(inertia + cognitive + social));
         }
-    /*    if (ParticleSwarmOptimization.binary == true){
-    		for (int i = 0; i < actualVelocity.size(); i++) {
-				binaryVelocity.add((3 + (Integer)actualVelocity.get(i))%3 - 1);     //FORMULA DE LA VELOCIDAD PARA CODIFICACION BINARIA  
-			}
-    		return binaryVelocity;
-    	}*/
+    
         return actualVelocity;
     }
 	
@@ -113,7 +108,7 @@ public class Particle extends Generator {
 		ArrayList<Object> newCode = new ArrayList<Object>();
 		ArrayList<Object> binaryCode = new ArrayList<Object>();
 		//poner la condicion de si se esta trabajando con valores continuos o binarios
-		if(ParticleSwarmOptimization.binary == false){	
+		if(!ParticleSwarmOptimization.binary){	
 			for (int i = 0; i < stateActual.getCode().size(); i++) {
 					newCode.add( (Double)(stateActual.getCode().get(i)) + (Double)(actualVelocity.get(i)) );
 		    }
@@ -132,12 +127,7 @@ public class Particle extends Generator {
 			  }
 	          return binaryCode;
     }
-			/*	if(ParticleSwarmOptimization.binary == true){//wendy
-					for (int i = 0; i < newCode.size(); i++) {
-						binaryCode.add(4 + ((Integer)newCode.get(i))%2);     //FORMULA DE LA POSICION PARA CODIFICACION BINARIA  
-					}
-					return binaryCode;
-				}*/
+			
 		
 	}
 	
@@ -148,7 +138,6 @@ public class Particle extends Generator {
 			SecurityException, ClassNotFoundException, InstantiationException,
 			IllegalAccessException, InvocationTargetException,
 			NoSuchMethodException {
-		// TODO Auto-generated method stub
 		if(Strategy.getStrategy().getProblem().getTypeProblem().equals(ProblemType.Maximizar)){
 			if(stateActual.getEvaluation().get(0) > statePBest.getEvaluation().get(0)){
 				statePBest.setCode(new ArrayList<Object>(stateActual.getCode()));
@@ -166,67 +155,56 @@ public class Particle extends Generator {
 
 	@Override
 	public State getReference() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void setInitialReference(State stateInitialRef) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public GeneratorType getType() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<State> getReferenceList() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<State> getSonList() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public boolean awardUpdateREF(State stateCandidate) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public void setWeight(float weight) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public float getWeight() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public float[] getTrace() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public int[] getListCountBetterGender() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public int[] getListCountGender() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

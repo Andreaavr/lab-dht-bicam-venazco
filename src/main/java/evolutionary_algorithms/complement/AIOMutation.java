@@ -1,8 +1,9 @@
 package evolutionary_algorithms.complement;
 
+import config.tspDynamic.TSPState;
+
 import java.util.ArrayList;
 
-import config.tspDynamic.TSPState;
 
 
 import metaheurictics.strategy.Strategy;
@@ -16,11 +17,10 @@ public class AIOMutation extends Mutation {
 
 	@Override
 	public State mutation(State state, double PM) {
-		// TODO Auto-generated method stub
 		int key = Strategy.getStrategy().getProblem().getCodification().getAleatoryKey(); //seleccionar aleatoriamente una ciudad
 		int key1 = 0;
 		boolean found = false;
-		while (found == false){
+		while (!found){
 			key1 = Strategy.getStrategy().getProblem().getCodification().getAleatoryKey();
 			if(key1 != key)
 				found = true;

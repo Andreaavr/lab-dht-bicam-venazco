@@ -16,13 +16,13 @@ public class AcceptNotDominated extends AcceptableCandidate {
 		if(Strategy.getStrategy().listRefPoblacFinal.size() == 0){
 			Strategy.getStrategy().listRefPoblacFinal.add(stateCurrent.clone());
 		}
-		if(dominace.dominance(stateCurrent, stateCandidate)== false)
+		if(!dominace.dominance(stateCurrent, stateCandidate))
 		{
 			//Verificando si la solución candidata domina a alguna de las soluciones de la lista de soluciones no dominadas
 			//De ser así se eliminan de la lista y se adiciona la nueva solución en la lista
 			//De lo contrario no se adiciona la solución candidata a la lista
 			//Si fue insertada en la lista entonces la solucion candidata se convierte en solucion actual
-			if(dominace.ListDominance(stateCandidate, Strategy.getStrategy().listRefPoblacFinal) == true){
+			if(dominace.ListDominance(stateCandidate, Strategy.getStrategy().listRefPoblacFinal)){
 				//Se pone la solución candidata como solución actual
 				accept = true;
 			}

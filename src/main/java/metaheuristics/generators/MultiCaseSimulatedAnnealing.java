@@ -1,9 +1,10 @@
 package metaheuristics.generators;
 
+import java.util.logging.Level;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import factory_interface.IFFactoryAcceptCandidate;
@@ -92,15 +93,9 @@ public class MultiCaseSimulatedAnnealing extends Generator {
 		if(countIterationsCurrent.equals(countIterationsT)){
 			tinitial = tinitial * alpha;
 			//Variante Fast MOSA
-			//tinitial = tinitial/(1 + countIterationsCurrent);
 			
 			//Variante Two-Stage Annealing MC-MOSA
-			/*if(countIterationsCurrent/2 < countIterationsT){
-				tinitial = tinitial * alpha;
-			}
-			else{
-				tinitial = tinitial/(1 + countIterationsCurrent);
-			}*/
+			
 			LOGGER.log(Level.FINE, "Temperatura actual: {0}", tinitial);
 			countIterationsT = countIterationsT + countRept;
 			LOGGER.log(Level.FINE, "Iteraciones hasta el siguiente enfriamiento: {0}", countIterationsT);
@@ -121,44 +116,37 @@ public class MultiCaseSimulatedAnnealing extends Generator {
 
 	@Override
 	public List<State> getSonList() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public boolean awardUpdateREF(State stateCandidate) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 
 	@Override
 	public float getWeight() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public void setWeight(float weight) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public int[] getListCountBetterGender() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public int[] getListCountGender() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public float[] getTrace() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	

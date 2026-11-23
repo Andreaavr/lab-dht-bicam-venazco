@@ -23,7 +23,7 @@ public class InstanceDE implements Runnable {
 		}
 		boolean find = false;
 		int i = 0;
-		while (find == false) {
+		while (!find) {
 			if(MultiGenerator.getListGenerators()[i].getType().equals(GeneratorType.DistributionEstimationAlgorithm)){
 				MultiGenerator.getListGenerators()[i] = generatorDE;
 				find = true;

@@ -25,7 +25,6 @@ public class MutationOperator extends Operator {
 
 	@Override
 	public List<State> generateRandomState(Integer operatornumber) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

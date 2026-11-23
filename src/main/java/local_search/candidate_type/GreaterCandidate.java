@@ -22,7 +22,7 @@ public class GreaterCandidate extends SearchCandidate {
 		State stateGreater = null;
 		if(listNeighborhood.size() > 1){
 			double counter = 0;
-			double currentCount = listNeighborhood.get(0).getEvaluation().get(0);;
+			double currentCount = listNeighborhood.get(0).getEvaluation().get(0);
 			for (int i = 1; i < listNeighborhood.size(); i++) {
 				counter = listNeighborhood.get(i).getEvaluation().get(0);
 				if (counter > currentCount) {
@@ -32,7 +32,7 @@ public class GreaterCandidate extends SearchCandidate {
 				counter = 0;
 			}
 			if(stateGreater == null){
-				int pos = (int)(RandomUtil.nextDouble() * (double)(listNeighborhood.size() - 1));
+				int pos = RandomUtil.nextInt(listNeighborhood.size());
 				stateGreater = listNeighborhood.get(pos);
 			}
 		}

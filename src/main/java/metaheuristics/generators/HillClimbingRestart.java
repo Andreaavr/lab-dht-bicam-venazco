@@ -1,21 +1,22 @@
 package metaheuristics.generators;
 
 import java.lang.reflect.InvocationTargetException;
+import factory_method.FactoryAcceptCandidate;
+import local_search.acceptation_type.AcceptableCandidate;
+import metaheurictics.strategy.Strategy;
+import problem.definition.Problem.ProblemType;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import factory_interface.IFFactoryAcceptCandidate;
-import factory_method.FactoryAcceptCandidate;
 
 import local_search.acceptation_type.AcceptType;
-import local_search.acceptation_type.AcceptableCandidate;
 import local_search.candidate_type.CandidateType;
 import local_search.candidate_type.CandidateValue;
 import local_search.complement.StrategyType;
-import metaheurictics.strategy.Strategy;
 
 import problem.definition.State;
-import problem.definition.Problem.ProblemType;
 
 public class HillClimbingRestart extends Generator{
 
@@ -41,8 +42,6 @@ public class HillClimbingRestart extends Generator{
 
 	public HillClimbingRestart() {
 		super();
-//		countIterations = Strategy.getStrategy().getCountCurrent();
-//		countSame = 1;
 		countCurrent = count;
 		this.typeAcceptation = AcceptType.AcceptBest;
 		this.strategy = StrategyType.NORMAL;
@@ -63,7 +62,6 @@ public class HillClimbingRestart extends Generator{
 
 
 	public State generate (Integer operatornumber) throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-		//ArrayList<State>list=new ArrayList<State>();
 		State statecandidate = new State();
 		if(count == Strategy.getStrategy().getCountCurrent()){
 			State stateR = new State(stateReferenceHC);
@@ -74,7 +72,6 @@ public class HillClimbingRestart extends Generator{
 		}
 		List<State> neighborhood = Strategy.getStrategy().getProblem().getOperator().generatedNewState(stateReferenceHC, operatornumber);
 		statecandidate = candidatevalue.stateCandidate(stateReferenceHC, typeCandidate, strategy, operatornumber, neighborhood);
-		//list.add(statecandidate);
 		return statecandidate;
 	}
 
@@ -84,13 +81,11 @@ public class HillClimbingRestart extends Generator{
 			SecurityException, ClassNotFoundException, InstantiationException,
 			IllegalAccessException, InvocationTargetException,
 			NoSuchMethodException {
-		// TODO Auto-generated method stub
 		ifacceptCandidate = new FactoryAcceptCandidate();
 		AcceptableCandidate candidate = ifacceptCandidate.createAcceptCandidate(typeAcceptation);
 		Boolean accept = candidate.acceptCandidate(stateReferenceHC, stateCandidate);
 		if(accept.equals(true))
 		  stateReferenceHC = stateCandidate;
-//		getReferenceList();
 	}
 
 
@@ -130,7 +125,6 @@ public class HillClimbingRestart extends Generator{
 
 	@Override
 	public List<State> getSonList() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -140,60 +134,35 @@ public class HillClimbingRestart extends Generator{
 
 	@Override
 	public boolean awardUpdateREF(State stateCandidate) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 
 	@Override
 	public float getWeight() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public void setWeight(float weight) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	
-	/*public State generate2(Integer operatornumber) throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-		State statecandidate = new State();
-		countIterations = Strategy.getStrategy().getCountCurrent();
-		if (countIterations>0){
-			if(Strategy.getStrategy().Statistics.getbestListStates().get(countIterations)==Strategy.getStrategy().Statistics.getbestListStates().get(countIterations-1)){
-				countSame++;
-				if(countSame == count-1){
-					State stateR = new State(stateReferenceHC);
-					listRef.add(stateR);
-					stateReferenceHC = Strategy.getStrategy().getProblem().getOperator().generateRandomState(1).get(0);
-				}
-			}
-			else
-				countSame = 1;
-		}
-		List<State> neighborhood = Strategy.getStrategy().getProblem().getOperator().generatedNewState(stateReferenceHC, operatornumber);
-		statecandidate = candidatevalue.stateCandidate(stateReferenceHC, typeCandidate, strategy, operatornumber, neighborhood);
-		return statecandidate;
-	}
-*/
+	
 	
 	@Override
 	public int[] getListCountBetterGender() {
-		// TODO Auto-generated method stub
 		return this.listCountBetterGender;
 	}
 
 	@Override
 	public int[] getListCountGender() {
-		// TODO Auto-generated method stub
 		return this.listCountGender;
 	}
 
 	@Override
 	public float[] getTrace() {
-		// TODO Auto-generated method stub
 		return this.listTrace;
 	}
 }

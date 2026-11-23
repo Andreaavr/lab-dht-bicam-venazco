@@ -1,25 +1,26 @@
 package metaheuristics.generators;
 
 import java.lang.reflect.InvocationTargetException;
+import local_search.acceptation_type.AcceptableCandidate;
+import local_search.complement.TabuSolutions;
+import metaheurictics.strategy.Strategy;
+import problem.definition.Problem;
+import problem.definition.Problem.ProblemType;
+import factory_method.FactoryAcceptCandidate;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import local_search.acceptation_type.AcceptType;
-import local_search.acceptation_type.AcceptableCandidate;
 import local_search.candidate_type.CandidateType;
 import local_search.candidate_type.CandidateValue;
 import local_search.complement.StrategyType;
-import local_search.complement.TabuSolutions;
-import metaheurictics.strategy.Strategy;
 
-import problem.definition.Problem;
 import problem.definition.State;
-import problem.definition.Problem.ProblemType;
 
 
 
 import factory_interface.IFFactoryAcceptCandidate;
-import factory_method.FactoryAcceptCandidate;
 
 public class TabuSearch extends Generator {
 
@@ -75,11 +76,9 @@ public class TabuSearch extends Generator {
 
 	@Override
 	public State generate(Integer operatornumber) throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-		//ArrayList<State>list=new ArrayList<State>();
 		List<State> neighborhood = new ArrayList<State>();
 		neighborhood = Strategy.getStrategy().getProblem().getOperator().generatedNewState(stateReferenceTS, operatornumber);
 	    State statecandidate = candidatevalue.stateCandidate(stateReferenceTS, typeCandidate, strategy, operatornumber, neighborhood);
-	   // list.add(statecandidate);
 	    return statecandidate;
 	}
 
@@ -110,7 +109,7 @@ public class TabuSearch extends Generator {
 				Boolean find = false;
 				int count = 0;
 				while ((TabuSolutions.listTabu.size() > count) && (find.equals(false))) {
-					if ((TabuSolutions.listTabu.get(count).Comparator(stateCandidate))==true) {
+					if (TabuSolutions.listTabu.get(count).Comparator(stateCandidate)) {
 						find = true;
 					}
 					count++;
@@ -123,7 +122,7 @@ public class TabuSearch extends Generator {
 				Boolean find = false;
 				int count = 0;
 				while (TabuSolutions.listTabu.size() > count && find.equals(false)) {
-					if ((TabuSolutions.listTabu.get(count).Comparator(stateCandidate))==true) {
+					if (TabuSolutions.listTabu.get(count).Comparator(stateCandidate)) {
 						find = true;
 					}
 					count++;
@@ -133,7 +132,6 @@ public class TabuSearch extends Generator {
 				}
 			}
 		}
-//		getReferenceList();
 	}
 
 	@Override
@@ -149,7 +147,6 @@ public class TabuSearch extends Generator {
 
 	@Override
 	public List<State> getSonList() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -159,36 +156,30 @@ public class TabuSearch extends Generator {
 
 	@Override
 	public boolean awardUpdateREF(State stateCandidate) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	public float getWeight() {
-		// TODO Auto-generated method stub
 		return this.weight;
 	}
 
 	@Override
 	public void setWeight(float weight) {
-		// TODO Auto-generated method stub
 		this.weight = weight;
 	}
 
 	@Override
 	public int[] getListCountBetterGender() {
-		// TODO Auto-generated method stub
 		return this.listCountBetterGender;
 	}
 
 	@Override
 	public int[] getListCountGender() {
-		// TODO Auto-generated method stub
 		return this.listCountGender;
 	}
 
 	@Override
 	public float[] getTrace() {
-		// TODO Auto-generated method stub
 		return this.listTrace;
 	}
 

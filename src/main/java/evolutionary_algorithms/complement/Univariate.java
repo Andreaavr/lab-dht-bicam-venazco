@@ -1,8 +1,9 @@
 package evolutionary_algorithms.complement;
 
+import java.util.SortedMap;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.SortedMap;
 
 import problem.definition.State;
 

@@ -13,7 +13,7 @@ public class AcceptNotBad extends AcceptableCandidate{
 
 	@Override
 	public Boolean acceptCandidate(State stateCurrent, State stateCandidate) {
-		Boolean accept = null;
+		Boolean accept = false;
 		Problem problem = Strategy.getStrategy().getProblem();
 		for (int i = 0; i < problem.getFunction().size(); i++) {
 		if (problem.getTypeProblem().equals(ProblemType.Maximizar)) {

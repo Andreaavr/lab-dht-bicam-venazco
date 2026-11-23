@@ -1,20 +1,21 @@
 package metaheuristics.generators;
 
 import java.lang.reflect.InvocationTargetException;
+import local_search.acceptation_type.AcceptableCandidate;
+import metaheurictics.strategy.Strategy;
+import factory_method.FactoryAcceptCandidate;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import local_search.acceptation_type.AcceptType;
-import local_search.acceptation_type.AcceptableCandidate;
 import local_search.candidate_type.CandidateType;
 import local_search.candidate_type.CandidateValue;
 import local_search.complement.StrategyType;
-import metaheurictics.strategy.Strategy;
 
 import problem.definition.State;
 
 import factory_interface.IFFactoryAcceptCandidate;
-import factory_method.FactoryAcceptCandidate;
 
 public class SimulatedAnnealing extends Generator {
 
@@ -52,10 +53,7 @@ public class SimulatedAnnealing extends Generator {
 	public SimulatedAnnealing(){
 
     	super();
-    	/*SimulatedAnnealing.alpha = 0.93;
-    	SimulatedAnnealing.tinitial = 250.0;
-    	SimulatedAnnealing.tfinal = 41.66;
-    	SimulatedAnnealing.countIterationsT = 50;*/
+    	
 
     	this.typeAcceptation = AcceptType.AcceptNotBadT;
 		this.strategy = StrategyType.NORMAL;
@@ -70,11 +68,9 @@ public class SimulatedAnnealing extends Generator {
 
 	@Override
 	public State generate(Integer operatornumber) throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-		//<State>list=new ArrayList<State>();
 		List<State> neighborhood = new ArrayList<State>();
 		neighborhood = Strategy.getStrategy().getProblem().getOperator().generatedNewState(stateReferenceSA, operatornumber);
 	    State statecandidate = candidatevalue.stateCandidate(stateReferenceSA, typeCandidate, strategy, operatornumber, neighborhood);
-	   // list.add(statecandidate);
 	    return statecandidate;
 	}
 
@@ -104,7 +100,6 @@ public class SimulatedAnnealing extends Generator {
 			tinitial = tinitial * alpha;
 			countIterationsT = countIterationsT + countRept;
 		}
-//		getReferenceList();
 	}
 
 	@Override
@@ -120,44 +115,37 @@ public class SimulatedAnnealing extends Generator {
 
 	@Override
 	public List<State> getSonList() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public boolean awardUpdateREF(State stateCandidate) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 
 	@Override
 	public float getWeight() {
-		// TODO Auto-generated method stub
 		return this.weight;
 	}
 
 	@Override
 	public void setWeight(float weight) {
-		// TODO Auto-generated method stub
 		this.weight = weight;
 	}
 
 	@Override
 	public int[] getListCountBetterGender() {
-		// TODO Auto-generated method stub
 		return this.listCountBetterGender;
 	}
 
 	@Override
 	public int[] getListCountGender() {
-		// TODO Auto-generated method stub
 		return this.listCountGender;
 	}
 
 	@Override
 	public float[] getTrace() {
-		// TODO Auto-generated method stub
 		return this.listTrace;
 	}
 

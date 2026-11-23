@@ -1,20 +1,21 @@
 package metaheuristics.generators;
 
-
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.Iterator;
+import factory_method.FactoryAcceptCandidate;
+import local_search.acceptation_type.AcceptableCandidate;
+import metaheurictics.strategy.Strategy;
+
+
+import java.util.ArrayList;
 import java.util.List;
 import factory_interface.IFFactoryAcceptCandidate;
-import factory_method.FactoryAcceptCandidate;
 
 import problem.definition.State;
 import local_search.acceptation_type.AcceptType;
-import local_search.acceptation_type.AcceptableCandidate;
 import local_search.candidate_type.CandidateType;
 import local_search.candidate_type.CandidateValue;
 import local_search.complement.StrategyType;
-import metaheurictics.strategy.Strategy;
 
 public class MultiobjectiveHillClimbingDistance extends Generator{
 
@@ -67,34 +68,30 @@ public class MultiobjectiveHillClimbingDistance extends Generator{
 		List<State> neighborhood = new ArrayList<State>();
 		neighborhood = Strategy.getStrategy().getProblem().getOperator().generatedNewState(stateReferenceHC, sizeNeighbors);
 		int i= 0;
-//		Boolean restart= true;
 
-//		while (restart==true) {
 			Boolean accept = candidate.acceptCandidate(lastState, stateCandidate.clone());
 			if(accept.equals(true)){
 				stateReferenceHC = stateCandidate.clone();
 				visitedState = new ArrayList<State>();
 				lastState=stateReferenceHC.clone();
-//				restart=false;
 			}
 
 			else{
 
 				boolean stop = false;
-				while (i < neighborhood.size()&& stop==false) {
-					if (Contain(neighborhood.get(i))==false) {
+				while (i < neighborhood.size()&& !stop) {
+					if (!Contain(neighborhood.get(i))) {
 						stateReferenceHC = SolutionMoreDistance(Strategy.getStrategy().listRefPoblacFinal, distanceSolution);
 						visitedState.add(stateReferenceHC);
 						stop=true;
 						lastState=stateReferenceHC.clone();
-//						restart=false;
 					}
 					i++;
 				}
 				int coutrestart=0;
-				while (stop == false && coutrestart < sizeNeighbors && accept==false) {
+				while (!stop && coutrestart < sizeNeighbors && !accept) {
 					stateCandidate = Strategy.getStrategy().getProblem().getOperator().generateRandomState(1).get(0);
-					if (Contain(stateCandidate)==false) {
+					if (!Contain(stateCandidate)) {
 						Strategy.getStrategy().getProblem().Evaluate(stateCandidate);  
 						visitedState.add(stateCandidate);
 						stop=true;
@@ -166,7 +163,6 @@ public class MultiobjectiveHillClimbingDistance extends Generator{
 
 	@Override
 	public List<State> getSonList() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -180,7 +176,6 @@ public class MultiobjectiveHillClimbingDistance extends Generator{
 			State solA = solutions[k];
 			distance = solA.Distance(lastSolution);
 			listDist.add(distanceSolution.get(k)+distance);
-//			distanceSolution.set(k, distanceSolution.get(k) + distance);
 		}
 		distance = 0.0;
 		//Calculando la distancia del último elemento (elemento insertado) respecto al resto de los elementos
@@ -194,7 +189,6 @@ public class MultiobjectiveHillClimbingDistance extends Generator{
 				distance += lastSolution.Distance(solB);
 			}
 			listDist.add(distance);
-//			distanceSolution.add(distance);
 			distanceSolution=listDist;
 			
 			return distanceSolution;
@@ -216,38 +210,32 @@ public class MultiobjectiveHillClimbingDistance extends Generator{
 
 	@Override
 	public boolean awardUpdateREF(State stateCandidate) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 
 	@Override
 	public float getWeight() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public void setWeight(float weight) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public int[] getListCountBetterGender() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public int[] getListCountGender() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public float[] getTrace() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

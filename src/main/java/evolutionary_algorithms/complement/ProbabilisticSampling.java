@@ -1,13 +1,14 @@
 package evolutionary_algorithms.complement;
 
 import util.RandomUtil;
-
-
 import java.util.ArrayList;
-import java.util.List;
-
 import metaheurictics.strategy.Strategy;
 import metaheuristics.generators.GeneratorType;
+
+
+
+import java.util.List;
+
 
 import problem.definition.State;
 
@@ -16,7 +17,6 @@ public class ProbabilisticSampling extends Sampling {
 
 	@Override
 	public List<State> sampling(List<State> fathers, int countInd) {
-		// TODO Auto-generated method stub
 		int cantV = fathers.get(0).getCode().size();
 		List<State> staList = listState(countInd);
 		for (int i = 0; i < cantV; i++) {
@@ -37,7 +37,7 @@ public class ProbabilisticSampling extends Sampling {
 			while (k < arrtemp.length) {
 				int count = 0;
 				for (int j = 0; j < values.length; j++) {
-					if((Integer)values[j] != -1 && values[j] == arrtemp[k]){ //
+					if((Integer)values[j] != -1 && values[j].equals(arrtemp[k])){ //
 						count++;
 						values[j] = -1;
 					}
@@ -50,7 +50,7 @@ public class ProbabilisticSampling extends Sampling {
 				boolean find = false;
 				int p = 0;
 				int random = (int)(RandomUtil.nextDouble() * (double)(sum)) + 1;
-				while (p < arrOcc.length && find == false) {
+				while (p < arrOcc.length && !find) {
 					random = random - arrOcc[p];
 					if(random <= 0){
 						staList.get(l).getCode().add(arrtemp[p]);
@@ -58,8 +58,8 @@ public class ProbabilisticSampling extends Sampling {
 					}
 					else p++;
 				}
-				if(find == false){
-					int value = Integer.valueOf((int)(RandomUtil.nextDouble() * (double)(Strategy.getStrategy().getProblem().getCodification().getVariableCount() * 10)));
+				if(!find){
+					int value = RandomUtil.nextInt(Strategy.getStrategy().getProblem().getCodification().getVariableCount() * 10);
 					staList.get(l).getCode().add(value);
 				}
 				

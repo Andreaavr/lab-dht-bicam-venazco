@@ -2,7 +2,6 @@ package evolutionary_algorithms.complement;
 
 import util.RandomUtil;
 
-import metaheurictics.strategy.Strategy;
 
 import problem.definition.State;
 
@@ -12,15 +11,15 @@ public class UniformCrossover extends Crossover {
 	public int[] mascara(int length){
 		int[] mascara = new int[length];
 		for (int i = 0; i < mascara.length; i++) {
-			int value = (int)(RandomUtil.nextDouble() * (int)(2));
-			mascara[0] = value;
+			int value = RandomUtil.nextInt(2);
+			mascara[i] = value;
 		}
 		return mascara;
 	}	
     
 	@Override
 	public State crossover(State father1, State father2, double PC) {
-		Object value = new Object();
+		Object value;
 		State state = (State) father1.getCopy();
 		int[] mascara = mascara(father1.getCode().size());
    		for (int k = 0; k < mascara.length; k++) {

@@ -1,32 +1,33 @@
 package metaheurictics.strategy;
 
 import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.SortedMap;
 import java.util.TreeMap;
-
-import factory_interface.IFFactoryGenerator;
 import factory_method.FactoryGenerator;
-
-import problem.definition.Problem;
-import problem.definition.State;
 import problem.definition.Problem.ProblemType;
-
 import local_search.acceptation_type.Dominance;
-import local_search.complement.StopExecute;
-import local_search.complement.UpdateParameter;
 import metaheuristics.generators.DistributionEstimationAlgorithm;
 import metaheuristics.generators.EvolutionStrategies;
-import metaheuristics.generators.Generator;
-import metaheuristics.generators.GeneratorType;
 import metaheuristics.generators.GeneticAlgorithm;
 import metaheuristics.generators.MultiGenerator;
 import metaheuristics.generators.ParticleSwarmOptimization;
 import metaheuristics.generators.RandomSearch;
+
+import java.util.logging.Logger;
+
+import java.util.ArrayList;
+import java.util.SortedMap;
+
+import factory_interface.IFFactoryGenerator;
+
+import problem.definition.Problem;
+import problem.definition.State;
+
+import local_search.complement.StopExecute;
+import local_search.complement.UpdateParameter;
+import metaheuristics.generators.Generator;
+import metaheuristics.generators.GeneratorType;
 
 public class Strategy {
 
@@ -81,7 +82,7 @@ public class Strategy {
 
 	public void executeStrategy (int countmaxIterations, int countIterationsChange, int operatornumber, GeneratorType generatorType) throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException{
 		// si se quiere calcular el tiempo de ejecucion del un algoritmo
-		if(calculateTime == true){
+		if(calculateTime){
 			initialTime = System.currentTimeMillis();
 		}
 		this.countMax = countmaxIterations; // max cantidad de iteraciones
@@ -92,16 +93,16 @@ public class Strategy {
 		initialState.setTypeGenerator(generatorType);
 		getProblem().setState(initialState);
 		//si se va a salvar la lista de estados generados, adicionar el estado
-		if(saveListStates ==  true){
+		if(saveListStates){
 			listStates = new ArrayList<State>(); //list de estados generados
 			listStates.add(initialState);
 		}
 		//si se va a salvar la lista de mejores soluciones encontradas en cada iteracion
-		if(saveListBestStates == true){
+		if(saveListBestStates){
 			listBest = new ArrayList<State>(); // list de mejores estados encontrados
 			listBest.add(initialState);
 		}
-		if(saveFreneParetoMonoObjetivo == true){
+		if(saveFreneParetoMonoObjetivo){
 			notDominated = new Dominance();
 		}
 		// crear el generador a ejecutar
@@ -163,10 +164,9 @@ public class Strategy {
 					stateCandidate.setNumber(countCurrent);
 					stateCandidate.setTypeGenerator(generatorType);
 					generator.updateReference(stateCandidate, countCurrent);
-					if(saveListStates ==  true){
+					if(saveListStates){
 						listStates.add(stateCandidate);
 					}
-//					listStates.add(stateCandidate);
 				}
 				//actualizar el mejor estado encontrado solo tiene sentido para algoritmos monoobjetivos
 				
@@ -177,8 +177,7 @@ public class Strategy {
 				if ((problem.getTypeProblem().equals(ProblemType.Minimizar)) && bestState.getEvaluation().get(bestState.getEvaluation().size() - 1) > stateCandidate.getEvaluation().get(bestState.getEvaluation().size() - 1)) {
 					bestState = stateCandidate;
 				}
-				//					System.out.println("Evaluacion: "+ bestState.getEvaluation());
-				if(saveListBestStates == true){
+				if(saveListBestStates){
 					listBest.add(bestState);
 				}
 				sumMax = (float) (sumMax + bestState.getEvaluation().get(0));
@@ -209,10 +208,10 @@ public class Strategy {
 					stateCandidate.setNumber(countCurrent);
 					stateCandidate.setTypeGenerator(generatorType);
 					generator.updateReference(stateCandidate, countCurrent); // actualizar la referencia del estado
-					if(saveListStates ==  true){
+					if(saveListStates){
 						listStates.add(stateCandidate);
 					}
-					if(saveFreneParetoMonoObjetivo == true){
+					if(saveFreneParetoMonoObjetivo){
 						notDominated.ListDominance(stateCandidate, listRefPoblacFinal);
 					}
 				}
@@ -224,16 +223,14 @@ public class Strategy {
 				if ((problem.getTypeProblem().equals(ProblemType.Minimizar)) && bestState.getEvaluation().get(bestState.getEvaluation().size() - 1) > stateCandidate.getEvaluation().get(bestState.getEvaluation().size() - 1)) {
 					bestState = stateCandidate;
 				}
-				//					System.out.println("Evaluacion: "+ bestState.getEvaluation());
-				if(saveListBestStates == true){
+				if(saveListBestStates){
 					listBest.add(bestState);
 				}
 				sumMax = (float) (sumMax + bestState.getEvaluation().get(0));
 			}
-//			System.out.println("Iteracion: " + countCurrent);
 		}
 		//calcular tiempo final
-		if(calculateTime == true){
+		if(calculateTime){
 			finalTime = System.currentTimeMillis();
 			timeExecute = finalTime - initialTime;
 			LOGGER.log(Level.INFO, "Tiempo de ejecucion (ms): {0}", timeExecute);
@@ -364,8 +361,6 @@ public class Strategy {
 		for (int i = 0; i < listType.size(); i++) {
 			Generator generator = newGenerator(listType.get(i));
 			mapGenerators.put(listType.get(i), generator);
-			//ExecuteGeneratorParall.getExecuteGeneratorParall().listGenerators.add(generator);
-//			MultiGenerator.getListGenerators()[i] = generator;
 		}
 	}
 
@@ -409,8 +404,6 @@ public class Strategy {
 	}
 	
 	public void updateRef(GeneratorType generatorType){
-//		State ref = problem.getOperator().newRef(problem.getRef());
-//		problem.setRef(ref);
 		if(generatorType.equals(GeneratorType.MultiGenerator)){
 			updateRefMultiG();
 			bestState = MultiGenerator.listStateReference.get( MultiGenerator.listStateReference.size() - 1);
@@ -429,14 +422,7 @@ public class Strategy {
 		if(generator.getType().equals(GeneratorType.HillClimbing) || generator.getType().equals(GeneratorType.TabuSearch) || generator.getType().equals(GeneratorType.RandomSearch) || generator.getType().equals(GeneratorType.SimulatedAnnealing)){
 			double evaluation = getProblem().getFunction().get(0).Evaluation(generator.getReference());
 			generator.getReference().getEvaluation().set(0, evaluation);
-//			State state = new State();
-//			state.setEvaluation(evaluation);
-//			state.setCode(new ArrayList<Object>(generator.getReference().getCode()));
-//			state.setTypeGenerator(generator.getType());
-//			generator.setInitialReference(state);
-			/*generator.getReferenceList().remove(generator.getReferenceList().size() - 1);
-			generator.setInitialReference(state);
-			generator.getReferenceList().add(state);*/
+			
 		}
 		if(generator.getType().equals(GeneratorType.GeneticAlgorithm) || generator.getType().equals(GeneratorType.DistributionEstimationAlgorithm) || generator.getType().equals(GeneratorType.EvolutionStrategies)){
 			for (int j = 0; j < generator.getReferenceList().size(); j++) {

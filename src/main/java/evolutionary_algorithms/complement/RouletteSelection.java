@@ -2,6 +2,7 @@ package evolutionary_algorithms.complement;
 
 import util.RandomUtil;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,22 +13,7 @@ import problem.definition.State;
 public class RouletteSelection extends FatherSelection {
 
 	@Override
-	public List<State> selection(List<State> listState, int truncation) {/*
-		List<State> fatherList = new ArrayList<State>();
-		double total = 0;
-		double sum = 0;
-		for (int i = 0; i < listState.size(); i++) {
-			total  = total + listState.get(i).getEvaluation().get(0);
-		}
-		double number = (double) RandomUtil.nextDouble() * (double)(total);
-
-		for (int i = 0; i < listState.size(); i++) {
-		  sum = sum + listState.get(i).getEvaluation().get(0);
-		  if(sum >= number)
-			  fatherList.add(listState.get(i));			  
-		}
-		return fatherList;
-	 */
+	public List<State> selection(List<State> listState, int truncation) {
 		float totalWeight = 0;
 		for (int i = 0; i < listState.size(); i++) {
 			totalWeight = (float) (listState.get(i).getEvaluation().get(0) + totalWeight);
@@ -46,7 +32,6 @@ public class RouletteSelection extends FatherSelection {
 			limitRoulette.setLimitHigh(limitHigh);
 			limitRoulette.setLimitLow(limitLow);
 			limitLow = limitHigh;
-			//			limitRoulette.setGenerator(listGenerators.get(i));
 			listLimit.add(limitRoulette);
 		}
 		List<State> fatherList = new ArrayList<State>();
@@ -54,7 +39,7 @@ public class RouletteSelection extends FatherSelection {
 			float numbAleatory = (float) (RandomUtil.nextDouble() * (double)(1));
 			boolean find = false;
 			int i = 0;
-			while ((find == false) && (i < listLimit.size())){
+			while ((!find) && (i < listLimit.size())){
 				if((listLimit.get(i).getLimitLow() <= numbAleatory) && (numbAleatory <= listLimit.get(i).getLimitHigh())){
 					find = true;
 					fatherList.add(listState.get(i));

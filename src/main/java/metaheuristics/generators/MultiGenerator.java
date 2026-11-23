@@ -1,22 +1,23 @@
 package metaheuristics.generators;
 
 import java.util.logging.Level;
+import util.RandomUtil;
+import java.lang.reflect.InvocationTargetException;
+import factory_method.FactoryGenerator;
+import metaheurictics.strategy.Strategy;
+import problem.definition.Problem.ProblemType;
+
 import java.util.logging.Logger;
 
-import util.RandomUtil;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
-import factory_method.FactoryGenerator;
 
-import metaheurictics.strategy.Strategy;
 
-import problem.definition.Problem.ProblemType;
 import problem.definition.State;
 
-public class MultiGenerator extends Generator {
+public class MultiGenerator extends Generator implements Cloneable {
 
 	/** Registro de errores de la clase. */
 	private static final Logger LOGGER = Logger.getLogger(MultiGenerator.class.getName());
@@ -39,7 +40,6 @@ public class MultiGenerator extends Generator {
 
 	public static void destroyMultiGenerator(){
 		listGeneratedPP.clear();
-		//listGenerators.clear();
 		listStateReference.clear();
 		activeGenerator = null;
 		listGenerators = null;
@@ -58,7 +58,6 @@ public class MultiGenerator extends Generator {
 	}
 	
 	public static void initializeGenerators() throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
-//		Strategy.getStrategy().initializeGenerators();
 		initializeListGenerator();
 		State stateREF = new State(Strategy.getStrategy().getProblem().getState());
 		listStateReference.add(stateREF);
@@ -91,49 +90,19 @@ public class MultiGenerator extends Generator {
 			}
 		}
 		
-		/*InstanceGA instanceGA = new InstanceGA();
-		Thread threadGA = new Thread(instanceGA);
 		
-		InstanceEE instanceEE = new InstanceEE();
-		Thread threadEE = new Thread(instanceEE);
-		
-		InstanceDE instanceDE = new InstanceDE();
-		Thread threadDE = new Thread(instanceDE);
-		
-		threadGA.start();
-		threadEE.start();
-		threadDE.start();
-		
-		boolean stop = false;
-		while (stop == false){
-			if(instanceEE.isTerminate() == true && instanceGA.isTerminate() == true && instanceDE.isTerminate() == true) 
-				stop = true;
-		}*/
 	}
 
 	
 	public static void createInstanceGeneratorsBPP() {
-//		int i = 0;
-//		boolean find = false;
 		Generator generator = new RandomSearch();
-//		while (find == false) {
-//			if (listGenerators[i].getType().equals(GeneratorType.RandomSearch)) {
-//				generator = listGenerators[i];
-//				find = true;
-//			}
-//			else i++;
-//		}
 		int j = 0;
 		while (j < EvolutionStrategies.countRef){
 			State stateCandidate;
 			try {
 				stateCandidate = generator.generate(1);
 				Strategy.getStrategy().getProblem().Evaluate(stateCandidate);
-				//stateCandidate.setEvaluation(stateCandidate.getEvaluation());
 				
-				//stateCandidate = generator.generate(1);
-				//Double evaluation = Strategy.getStrategy().getProblem().getFunction().get(0).Evaluation(stateCandidate);
-				//stateCandidate.getEvaluation().set(0, evaluation);
 				stateCandidate.setNumber(j);
 				stateCandidate.setTypeGenerator(generator.getType());
 				listGeneratedPP.add(stateCandidate);
@@ -174,7 +143,6 @@ public class MultiGenerator extends Generator {
 			ClassNotFoundException, InstantiationException,
 			IllegalAccessException, InvocationTargetException,
 			NoSuchMethodException {
-		// TODO Auto-generated method stub
 		Strategy.getStrategy().generator = roulette();
 		activeGenerator = Strategy.getStrategy().generator;
 		activeGenerator.countGender++;
@@ -184,19 +152,16 @@ public class MultiGenerator extends Generator {
 
 	@Override
 	public State getReference() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public List<State> getReferenceList() {
-		// TODO Auto-generated method stub
 		return listStateReference;
 	}
 
 	@Override
 	public List<State> getSonList() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -207,7 +172,6 @@ public class MultiGenerator extends Generator {
 
 	@Override
 	public void setInitialReference(State stateInitialRef) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -217,24 +181,14 @@ public class MultiGenerator extends Generator {
 			SecurityException, ClassNotFoundException, InstantiationException,
 			IllegalAccessException, InvocationTargetException,
 			NoSuchMethodException {
-		// TODO Auto-generated method stub
 		updateWeight(stateCandidate);
 		tournament(stateCandidate, countIterationsCurrent);
-		/*if(Strategy.getStrategy().getProblem().getTypeProblem().equals(ProblemType.Maximizar)){
-			if((stateCandidate.getEvaluation() > listStateReference.get(listStateReference.size() - 1).getEvaluation()))
-				listStateReference.add(stateCandidate);
-			else listStateReference.add(listStateReference.get(listStateReference.size() - 1)); 
-		}
-		else{
-			if((Strategy.getStrategy().getProblem().getTypeProblem().equals(ProblemType.Minimizar)) && (stateCandidate.getEvaluation() < listStateReference.get(listStateReference.size() - 1).getEvaluation()))
-				listStateReference.add(stateCandidate);
-			else listStateReference.add(listStateReference.get(listStateReference.size() - 1));
-		} */
+		
 	}
 	
 	public void updateWeight(State stateCandidate) { 
 		boolean search = searchState(stateCandidate);//premio por calidad. 
-		if(search == false)
+		if(!search)
 			updateAwardImp();
 		else updateAwardSC();
 	}
@@ -244,8 +198,6 @@ public class MultiGenerator extends Generator {
 			if(stateCandidate.getEvaluation().get(0) > Strategy.getStrategy().getBestState().getEvaluation().get(0)){
 				if(stateCandidate.getEvaluation().get(0) > Strategy.getStrategy().getBestState().getEvaluation().get(0))
 					activeGenerator.countBetterGender++;
-//				System.out.println(activeGenerator.getType().toString() + activeGenerator.countBetterGender);
-//				System.out.println(activeGenerator.countBetterGender);
 				return true;
 			}
 			else return false;
@@ -254,8 +206,6 @@ public class MultiGenerator extends Generator {
 			if(stateCandidate.getEvaluation().get(0) < Strategy.getStrategy().getBestState().getEvaluation().get(0)){
 				if(stateCandidate.getEvaluation().get(0) < Strategy.getStrategy().getBestState().getEvaluation().get(0))
 					activeGenerator.countBetterGender++;
-//				System.out.println(activeGenerator.getType().toString() + activeGenerator.countBetterGender);
-//				System.out.println(activeGenerator.countBetterGender);
 				return true;
 			}
 			else return false;
@@ -266,7 +216,6 @@ public class MultiGenerator extends Generator {
 	
 	@Override
 	public float getWeight() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 	
@@ -295,7 +244,7 @@ public class MultiGenerator extends Generator {
 		float numbAleatory = (float) (RandomUtil.nextDouble() * (double)(1));
 		boolean find = false;
 		int i = 0;
-		while ((find == false) && (i < listLimit.size())){
+		while ((!find) && (i < listLimit.size())){
 			if((listLimit.get(i).getLimitLow() <= numbAleatory) && (numbAleatory <= listLimit.get(i).getLimitHigh())){
 				find = true;
 			}
@@ -309,7 +258,6 @@ public class MultiGenerator extends Generator {
 
 	@Override
 	public boolean awardUpdateREF(State stateCandidate) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	
@@ -318,7 +266,6 @@ public class MultiGenerator extends Generator {
 		float weightLast = activeGenerator.getWeight();
 		float weightUpdate = (float) (weightLast * (1 - 0.1) + 10);
 		activeGenerator.setWeight(weightUpdate);
-//		activeGenerator.getTrace()getTrace().add(weightUpdate);
 		for (int i = 0; i < listGenerators.length; i++) {
 			if(listGenerators[i].equals(activeGenerator))
 				activeGenerator.getTrace()[Strategy.getStrategy().getCountCurrent()] = weightUpdate;
@@ -336,7 +283,6 @@ public class MultiGenerator extends Generator {
 		float weightLast = activeGenerator.getWeight();
 		float weightUpdate = (float) (weightLast * (1 - 0.1));
 		activeGenerator.setWeight(weightUpdate);
-//		activeGenerator.getTrace().add(weightUpdate);
 		for (int i = 0; i < listGenerators.length; i++) {
 			if(listGenerators[i].equals(activeGenerator))
 				activeGenerator.getTrace()[Strategy.getStrategy().getCountCurrent()] = weightUpdate;
@@ -351,12 +297,10 @@ public class MultiGenerator extends Generator {
 	
 	@Override
 	public void setWeight(float weight) {
-		// TODO Auto-generated method stub
 		
 	}
 	@Override
 	public float[] getTrace() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
@@ -369,19 +313,22 @@ public class MultiGenerator extends Generator {
 		}
 	}
 	
+	@Override
 	public Object clone(){
-		return this;
+		try {
+			return super.clone();
+		} catch (CloneNotSupportedException e) {
+			throw new AssertionError("MultiGenerator implementa Cloneable", e);
+		}
 	}
 
 	@Override
 	public int[] getListCountBetterGender() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public int[] getListCountGender() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

@@ -1,12 +1,13 @@
 package local_search.acceptation_type;
 
 import java.util.List;
-
 import metaheurictics.strategy.Strategy;
 import metaheuristics.generators.GeneratorType;
 import metaheuristics.generators.MultiobjectiveHillClimbingDistance;
 import problem.definition.Problem.ProblemType;
 import problem.definition.State;
+
+
 
 public class Dominance {
 
@@ -15,9 +16,9 @@ public class Dominance {
 	//Devuelve la lista actualizada y true si fue adicionada a la lista o false de lo contrario
 	public boolean ListDominance(State solutionX, List<State> list){
 		boolean domain = false;
-		for (int i = 0; i < list.size() && domain == false; i++) {
+		for (int i = 0; i < list.size() && !domain; i++) {
 			//Si la solución X domina a la solución de la lista
-			if(dominance(solutionX, list.get(i)) == true){
+			if(dominance(solutionX, list.get(i))){
 				//Se elimina el elemento de la lista
 				list.remove(i);
 				if (i!=0) {
@@ -28,22 +29,22 @@ public class Dominance {
 				}
 			}
 			if (list.size()>0) {
-				if(dominance(list.get(i), solutionX) == true){
+				if(dominance(list.get(i), solutionX)){
 					domain = true;
 				}
 			}
 
 		}
 		//Si la solución X no fue dominada
-		if(domain == false){
+		if(!domain){
 			//Comprobando que la solución no exista
 			boolean found = false;
-			for (int k = 0; k < list.size() && found == false; k++) {
+			for (int k = 0; k < list.size() && !found; k++) {
 				State element = list.get(k);
 				found = solutionX.Comparator(element);
 			}
 			//Si la solución no existe
-			if(found == false){
+			if(!found){
 				//Se guarda la solución candidata en la lista de soluciones óptimas de Pareto
 				list.add(solutionX.clone());
 				if (Strategy.getStrategy().generator.getType().equals(GeneratorType.MultiobjectiveHillClimbingDistance)) {
@@ -54,42 +55,7 @@ public class Dominance {
 		}
 		return false;
 
-		/*boolean domain = false;
-		List<State> deletedSolution = new ArrayList<State>();
-		for (int i = 0; i < list.size() && domain == false; i++) {
-			State element = list.get(i);
-			//Si la solución X domina a la solución de la lista
-			if(dominance(solutionX, element) == true){
-				//Se elimina el elemento de la lista
-				deletedSolution.add(element);
-			}
-			if(dominance(element, solutionX) == true){
-				domain = true;
-			}
-		}
-		//Si la solución X no fue dominada
-		if(domain == false){
-			//Comprobando que la solución no exista
-			boolean found = false;
-			for (int k = 0; k < list.size() && found == false; k++) {
-				State element = list.get(k);
-				found = solutionX.Comparator(element);
-			}
-			//Si la solución no existe
-			if(found == false){
-
-				//Se eliminan de la lista de soluciones optimas de pareto aquellas que fueron dominadas por la solución candidata
-				list.removeAll(deletedSolution);
-				//Se guarda la solución candidata en la lista de soluciones óptimas de Pareto
-				list.add(solutionX.clone());
-				if(Strategy.getStrategy().getProblem()!= null){
-					Strategy.getStrategy().listRefPoblacFinal = list;
-				}
-				return true;
-			}
-		}
-
-		return false;*/
+		
 	}
 
 
@@ -105,7 +71,7 @@ public class Dominance {
 				if(solutionX.getEvaluation().get(i).floatValue() > solutionY.getEvaluation().get(i).floatValue()){
 					countBest++;
 				}
-				if(solutionX.getEvaluation().get(i).floatValue() == solutionY.getEvaluation().get(i).floatValue()){
+				if(Float.compare(solutionX.getEvaluation().get(i).floatValue(), solutionY.getEvaluation().get(i).floatValue()) == 0){
 					countEquals++;
 				}	
 			}
@@ -116,7 +82,7 @@ public class Dominance {
 				if(solutionX.getEvaluation().get(i).floatValue() < solutionY.getEvaluation().get(i).floatValue()){
 					countBest++;
 				}
-				if(solutionX.getEvaluation().get(i).floatValue() == solutionY.getEvaluation().get(i).floatValue()){
+				if(Float.compare(solutionX.getEvaluation().get(i).floatValue(), solutionY.getEvaluation().get(i).floatValue()) == 0){
 					countEquals++;
 				}	
 			}

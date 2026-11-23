@@ -1,21 +1,22 @@
 package metaheuristics.generators;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.Iterator;
+import factory_method.FactoryAcceptCandidate;
+import local_search.acceptation_type.AcceptableCandidate;
+import metaheurictics.strategy.Strategy;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import factory_interface.IFFactoryAcceptCandidate;
-import factory_method.FactoryAcceptCandidate;
 
 import problem.definition.State;
 
 import local_search.acceptation_type.AcceptType;
-import local_search.acceptation_type.AcceptableCandidate;
 import local_search.candidate_type.CandidateType;
 import local_search.candidate_type.CandidateValue;
 import local_search.complement.StrategyType;
-import metaheurictics.strategy.Strategy;
 
 
 
@@ -40,7 +41,6 @@ public class MultiobjectiveHillClimbingRestart extends Generator{
 		super();
 		this.typeAcceptation = AcceptType.AcceptNotDominated;
 		this.strategy = StrategyType.NORMAL;
-		//Problem problem = Strategy.getStrategy().getProblem();
 		this.typeCandidate = CandidateType.NotDominatedCandidate;
 		this.candidatevalue = new CandidateValue();
 		this.Generatortype = GeneratorType.MultiobjectiveHillClimbingRestart;
@@ -81,8 +81,8 @@ public class MultiobjectiveHillClimbingRestart extends Generator{
 		}
 		else{
 			boolean stop = false;
-			while (i < neighborhood.size()&& stop==false) {
-				if (Contain(neighborhood.get(i))==false) {
+			while (i < neighborhood.size()&& !stop) {
+				if (!Contain(neighborhood.get(i))) {
 					stateCandidate = neighborhood.get(i);
 					Strategy.getStrategy().getProblem().Evaluate(stateCandidate);  
 					visitedState.add(stateCandidate);
@@ -91,9 +91,9 @@ public class MultiobjectiveHillClimbingRestart extends Generator{
 				}
 				i++;
 			}
-			while (stop == false) {
+			while (!stop) {
 				stateCandidate = Strategy.getStrategy().getProblem().getOperator().generateRandomState(1).get(0);
-				if (Contain(stateCandidate)==false) {
+				if (!Contain(stateCandidate)) {
 					Strategy.getStrategy().getProblem().Evaluate(stateCandidate);  
 					stop=true;
 					accept = candidate.acceptCandidate(lastState, stateCandidate.clone());
@@ -147,7 +147,6 @@ public class MultiobjectiveHillClimbingRestart extends Generator{
 
 	@Override
 	public List<State> getSonList() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -155,7 +154,7 @@ public class MultiobjectiveHillClimbingRestart extends Generator{
 		boolean found = false;
 		for (Iterator<State> iter = visitedState.iterator(); iter.hasNext();) {
 			State element = (State) iter.next();
-			if(element.Comparator(state)==true){
+			if(element.Comparator(state)){
 				found = true;
 			}
 		}
@@ -164,38 +163,32 @@ public class MultiobjectiveHillClimbingRestart extends Generator{
 
 	@Override
 	public boolean awardUpdateREF(State stateCandidate) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 
 	@Override
 	public float getWeight() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
 	public void setWeight(float weight) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public float[] getTrace() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public int[] getListCountBetterGender() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public int[] getListCountGender() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

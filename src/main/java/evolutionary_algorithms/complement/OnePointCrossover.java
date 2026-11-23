@@ -1,11 +1,11 @@
 package evolutionary_algorithms.complement;
 
+import metaheurictics.strategy.Strategy;
+
 import util.RandomUtil;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import metaheurictics.strategy.Strategy;
 
 import problem.definition.State;
 
@@ -17,13 +17,13 @@ public class OnePointCrossover extends Crossover {
 				
 		State newInd = (State) father1.getCopy();
 		
-	    List<Object> ind1 = new ArrayList<Object>();
-	    List<Object> ind2 = new ArrayList<Object>();
+	    ArrayList<Object> ind1 = new ArrayList<Object>();
+	    ArrayList<Object> ind2 = new ArrayList<Object>();
 	    
 	    double number = (double) RandomUtil.nextDouble() * (double)(1);	
 		if(number <= PC){
 			//llenar los valores de cada hijo
-			int pos = (int) RandomUtil.nextDouble() * (int)(Strategy.getStrategy().getProblem().getCodification().getVariableCount() - 1); 
+			int pos = (int) (RandomUtil.nextDouble() * (Strategy.getStrategy().getProblem().getCodification().getVariableCount() - 1));
 			for (int i = 0; i < father1.getCode().size(); i++) {
 				if(i <= pos){
 					ind1.add(father1.getCode().get(i));
@@ -34,19 +34,12 @@ public class OnePointCrossover extends Crossover {
 					ind2.add(father1.getCode().get(i));
 				}
 			}
-			/*
-			for (int j = pos; j < ind1.size(); j++) {
-		       for (int k = pos; k < ind2.size(); k++) {
-				  Integer value1 = (Integer) ind1.get(j);
-		    	  ind1.set(j, ind2.get(k));
-				  ind2.set(k,value1);
-			   }				  
-		    }*/
+			
 			//generar un numero aleatorio 0 o 1, si es 0 me quedo con ind1 si es 1 con ind2.
 			int random = (int)(RandomUtil.nextDouble() * (double)(2));
 			if(random == 0)
-				newInd.setCode((ArrayList<Object>) ind1);
-			else newInd.setCode((ArrayList<Object>) ind2); 
+				newInd.setCode(ind1);
+			else newInd.setCode(ind2);
 		}
 		return newInd;			
 	}

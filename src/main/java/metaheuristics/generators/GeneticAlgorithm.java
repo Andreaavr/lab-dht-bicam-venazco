@@ -1,32 +1,33 @@
 package metaheuristics.generators;
 
 import util.RandomUtil;
-
 import java.lang.reflect.InvocationTargetException;
+import metaheurictics.strategy.Strategy;
+import problem.definition.Problem.ProblemType;
+import evolutionary_algorithms.complement.Crossover;
+import evolutionary_algorithms.complement.FatherSelection;
+import evolutionary_algorithms.complement.Mutation;
+import evolutionary_algorithms.complement.Replace;
+import factory_method.FactoryCrossover;
+import factory_method.FactoryFatherSelection;
+import factory_method.FactoryMutation;
+import factory_method.FactoryReplace;
+
+
 import java.util.ArrayList;
 import java.util.List;
 
-import metaheurictics.strategy.Strategy;
 
 import problem.definition.State;
-import problem.definition.Problem.ProblemType;
 
-import evolutionary_algorithms.complement.Crossover;
 import evolutionary_algorithms.complement.CrossoverType;
-import evolutionary_algorithms.complement.FatherSelection;
-import evolutionary_algorithms.complement.Mutation;
 import evolutionary_algorithms.complement.MutationType;
-import evolutionary_algorithms.complement.Replace;
 import evolutionary_algorithms.complement.ReplaceType;
 import evolutionary_algorithms.complement.SelectionType;
 import factory_interface.IFFactoryCrossover;
 import factory_interface.IFFactoryFatherSelection;
 import factory_interface.IFFactoryMutation;
 import factory_interface.IFFactoryReplace;
-import factory_method.FactoryCrossover;
-import factory_method.FactoryFatherSelection;
-import factory_method.FactoryMutation;
-import factory_method.FactoryReplace;
 
 public class GeneticAlgorithm extends Generator {
 
@@ -42,10 +43,6 @@ public class GeneticAlgorithm extends Generator {
 	public static ReplaceType replaceType;
 	public static SelectionType selectionType;
 	
-//	private SelectionType selectionType;
-//	private CrossoverType crossoverType;
-//	private MutationType mutationType;
-//	private ReplaceType replaceType;
 	private GeneratorType generatorType;
 	public static double PC;
 	public static double PM;
@@ -63,10 +60,6 @@ public class GeneticAlgorithm extends Generator {
     public GeneticAlgorithm() {
 		super();
 		this.listState = getListStateRef(); // llamada al método que devuelve la lista. 
-//		this.selectionType = SelectionType.Truncation;
-//		this.crossoverType = CrossoverType.UniformCrossover;
-//		this.mutationType = MutationType.UniformMutation;
-//		this.replaceType = ReplaceType.Smallest;
 		this.generatorType = GeneratorType.GeneticAlgorithm;
 		this.weight = 50;
 		listTrace[0] = this.weight;
@@ -78,7 +71,6 @@ public class GeneticAlgorithm extends Generator {
 	public State generate(Integer operatornumber) throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
     	
 		//******************selection*******************************
-		//ArrayList<State>list=new ArrayList<State>();
 		List<State> refList = new ArrayList<State>(this.listState); 
     	iffatherselection = new FactoryFatherSelection();
     	FatherSelection selection = iffatherselection.createSelectFather(selectionType);
@@ -107,7 +99,6 @@ public class GeneticAlgorithm extends Generator {
     	iffactorymutation = new FactoryMutation();
     	Mutation mutation =iffactorymutation.createMutation(mutationType);
     	auxState1 = mutation.mutation(auxState1, PM);
-    	//list.add(auxState1);
     	
     	return auxState1;
 	}
@@ -157,7 +148,6 @@ public class GeneticAlgorithm extends Generator {
 		Boolean found = false;
 		List<String> key = Strategy.getStrategy().getListKey();
 		int count = 0;
-		//if(Strategy.getStrategy().Statistics.getAllStates().size() == 0){
 		/*if(RandomSearch.listStateReference.size() == 0){
 			return this.listState = new ArrayList<State>();
 		}*/
@@ -167,14 +157,6 @@ public class GeneticAlgorithm extends Generator {
 				GeneticAlgorithm generator = (GeneticAlgorithm) Strategy.getStrategy().mapGenerators.get(keyGenerator);
 				if(generator.getListState().isEmpty()){
 					listState.addAll(RandomSearch.listStateReference);
-					//for (int j = 1; j < Strategy.getStrategy().Statistics.getAllStates().size(); j++) {
-//					for (int j = 1; j < RandomSearch.listStateReference.size(); j++) {
-						//if(Strategy.getStrategy().Statistics.getAllStates().get(j).getTypeGenerator().equals(GeneratorType.RandomSearch) && (listState.size()!= countRef)){
-//						if(listState.size() != countRef){
-							//listState.add(Strategy.getStrategy().Statistics.getAllStates().get(j));
-//							listState.add(RandomSearch.listStateReference.get(j));
-//						}
-//					}  
 				}
 				else{
 					listState = generator.getListState();
@@ -211,43 +193,36 @@ public class GeneticAlgorithm extends Generator {
 
 	@Override
 	public List<State> getSonList() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public boolean awardUpdateREF(State stateCandidate) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 
 	@Override
 	public float getWeight() {
-		// TODO Auto-generated method stub
 		return this.weight;
 	}
 
 	@Override
 	public void setWeight(float weight) {
-		// TODO Auto-generated method stub
 		this.weight = weight;
 	}
 	@Override
 	public int[] getListCountBetterGender() {
-		// TODO Auto-generated method stub
 		return this.listCountBetterGender;
 	}
 
 	@Override
 	public int[] getListCountGender() {
-		// TODO Auto-generated method stub
 		return this.listCountGender;
 	}
 
 	@Override
 	public float[] getTrace() {
-		// TODO Auto-generated method stub
 		return this.listTrace;
 	}
 

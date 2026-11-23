@@ -1,17 +1,18 @@
 package metaheuristics.generators;
 
+import factory_method.FactoryAcceptCandidate;
+import local_search.acceptation_type.AcceptableCandidate;
+import local_search.complement.TabuSolutions;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
 import factory_interface.IFFactoryAcceptCandidate;
-import factory_method.FactoryAcceptCandidate;
 import local_search.acceptation_type.AcceptType;
-import local_search.acceptation_type.AcceptableCandidate;
 import local_search.candidate_type.CandidateType;
 import local_search.candidate_type.CandidateValue;
 import local_search.complement.StrategyType;
-import local_search.complement.TabuSolutions;
 import metaheurictics.strategy.Strategy;
 import problem.definition.Problem;
 import problem.definition.State;
@@ -65,7 +66,6 @@ public class MultiobjectiveTabuSearch extends Generator {
 	public State generate(Integer operatornumber) throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		List<State> neighborhood = new ArrayList<State>();
 		Problem problem = Strategy.getStrategy().getProblem();
-		//List<State> list = new ArrayList<State>();
 		//Devuelve la lista de soluciones no dominadas de todos los vecinos posibles de stateReferenceTS que no se encuentran en la lista Tabu
 		neighborhood = problem.getOperator().generatedNewState(stateReferenceTS, operatornumber);
 		//Se escoge uno aleatoriamente como vecino con RandomCandidate
@@ -139,7 +139,6 @@ public class MultiobjectiveTabuSearch extends Generator {
 	
 	@Override
 	public List<State> getSonList() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -149,37 +148,31 @@ public class MultiobjectiveTabuSearch extends Generator {
 
 	@Override
 	public boolean awardUpdateREF(State stateCandidate) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 
 	public float getWeight() {
-		// TODO Auto-generated method stub
 		return this.weight;
 	}
 
 	@Override
 	public void setWeight(float weight) {
-		// TODO Auto-generated method stub
 		this.weight = weight;
 	}
 
 	@Override
 	public int[] getListCountBetterGender() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public int[] getListCountGender() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public float[] getTrace() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
