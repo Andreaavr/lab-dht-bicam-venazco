@@ -36,7 +36,7 @@
         <!-- Sustituya los valores por los de su organización/proyecto en sonarcloud.io -->
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <sonar.organization>andreaavr</sonar.organization>
-        <sonar.projectKey>andreaavr_lab-dht-bicam-venazco</sonar.projectKey>
+        <sonar.projectKey>Andreaavr_lab-dht-bicam-venazco</sonar.projectKey>
         <sonar.projectName>lab-dht-bicam-venazco</sonar.projectName>
         <sonar.sourceEncoding>UTF-8</sonar.sourceEncoding>
         <!-- Cobertura generada por JaCoCo -->

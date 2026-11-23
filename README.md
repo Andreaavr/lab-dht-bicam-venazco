@@ -1,11 +1,11 @@
 # BiCIAM
 
 [![Build](https://github.com/Andreaavr/lab-dht-bicam-venazco/actions/workflows/build.yml/badge.svg)](https://github.com/Andreaavr/lab-dht-bicam-venazco/actions/workflows/build.yml)
-[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=andreaavr_lab-dht-bicam-venazco&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=andreaavr_lab-dht-bicam-venazco)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=andreaavr_lab-dht-bicam-venazco&metric=coverage)](https://sonarcloud.io/summary/new_code?id=andreaavr_lab-dht-bicam-venazco)
-[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=andreaavr_lab-dht-bicam-venazco&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=andreaavr_lab-dht-bicam-venazco)
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=andreaavr_lab-dht-bicam-venazco&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=andreaavr_lab-dht-bicam-venazco)
-[![Security](https://sonarcloud.io/api/project_badges/measure?project=andreaavr_lab-dht-bicam-venazco&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=andreaavr_lab-dht-bicam-venazco)
+[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=Andreaavr_lab-dht-bicam-venazco&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Andreaavr_lab-dht-bicam-venazco)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Andreaavr_lab-dht-bicam-venazco&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Andreaavr_lab-dht-bicam-venazco)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=Andreaavr_lab-dht-bicam-venazco&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=Andreaavr_lab-dht-bicam-venazco)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=Andreaavr_lab-dht-bicam-venazco&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=Andreaavr_lab-dht-bicam-venazco)
+[![Security](https://sonarcloud.io/api/project_badges/measure?project=Andreaavr_lab-dht-bicam-venazco&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=Andreaavr_lab-dht-bicam-venazco)
 
 Biblioteca de metaheurísticas en Java: búsqueda local (Hill Climbing, Tabu Search,
 Simulated Annealing…), algoritmos evolutivos (GA, ES, EDA, PSO), portafolio de
