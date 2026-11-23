@@ -3,6 +3,8 @@ package metaheuristics.generators;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import factory_interface.IFFactoryAcceptCandidate;
 import factory_method.FactoryAcceptCandidate;
@@ -17,6 +19,9 @@ import problem.definition.State;
 
 
 public class MultiCaseSimulatedAnnealing extends Generator {
+
+	/** Registro de eventos del enfriamiento. */
+	private static final Logger LOGGER = Logger.getLogger(MultiCaseSimulatedAnnealing.class.getName());
 
 	private CandidateValue candidatevalue;
 	private AcceptType typeAcceptation;
@@ -96,9 +101,9 @@ public class MultiCaseSimulatedAnnealing extends Generator {
 			else{
 				tinitial = tinitial/(1 + countIterationsCurrent);
 			}*/
-			System.out.println("La T:" + tinitial);
+			LOGGER.log(Level.FINE, "Temperatura actual: {0}", tinitial);
 			countIterationsT = countIterationsT + countRept;
-			System.out.println("La Cant es: " + countIterationsT);
+			LOGGER.log(Level.FINE, "Iteraciones hasta el siguiente enfriamiento: {0}", countIterationsT);
 		}
 		getReferenceList();
 	}

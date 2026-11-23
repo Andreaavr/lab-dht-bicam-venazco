@@ -1,5 +1,8 @@
 package metaheurictics.strategy;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +29,9 @@ import metaheuristics.generators.ParticleSwarmOptimization;
 import metaheuristics.generators.RandomSearch;
 
 public class Strategy {
+
+	/** Registro de eventos de la estrategia. */
+	private static final Logger LOGGER = Logger.getLogger(Strategy.class.getName());
 
 	private static Strategy strategy = null;
 	private State bestState;
@@ -230,7 +236,7 @@ public class Strategy {
 		if(calculateTime == true){
 			finalTime = System.currentTimeMillis();
 			timeExecute = finalTime - initialTime;
-			System.out.println("El tiempo de ejecucion: " + timeExecute);
+			LOGGER.log(Level.INFO, "Tiempo de ejecucion (ms): {0}", timeExecute);
 		}
 		if(generatorType.equals(GeneratorType.MultiGenerator)){
 			listBest = (ArrayList<State>) multiGenerator.getReferenceList();

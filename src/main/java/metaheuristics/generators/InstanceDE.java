@@ -1,9 +1,15 @@
 package metaheuristics.generators;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import factory_method.FactoryGenerator;
 
 
 public class InstanceDE implements Runnable {
+
+	/** Registro de errores de la clase. */
+	private static final Logger LOGGER = Logger.getLogger(InstanceDE.class.getName());
 
 	private boolean terminate = false;
 	
@@ -13,7 +19,7 @@ public class InstanceDE implements Runnable {
 		try {
 			generatorDE = ifFactoryGenerator.createGenerator(GeneratorType.DistributionEstimationAlgorithm);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.log(Level.SEVERE, "Error al crear el generador", e);
 		}
 		boolean find = false;
 		int i = 0;

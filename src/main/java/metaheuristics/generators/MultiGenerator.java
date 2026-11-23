@@ -1,5 +1,10 @@
 package metaheuristics.generators;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import util.RandomUtil;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +17,9 @@ import problem.definition.Problem.ProblemType;
 import problem.definition.State;
 
 public class MultiGenerator extends Generator {
+
+	/** Registro de errores de la clase. */
+	private static final Logger LOGGER = Logger.getLogger(MultiGenerator.class.getName());
 
 	private GeneratorType Generatortype;
 	private static Generator[] listGenerators = new Generator[GeneratorType.values().length];
@@ -130,7 +138,7 @@ public class MultiGenerator extends Generator {
 				stateCandidate.setTypeGenerator(generator.getType());
 				listGeneratedPP.add(stateCandidate);
 			} catch (Exception e) {
-				e.printStackTrace();
+				LOGGER.log(Level.SEVERE, "Error al crear el generador", e);
 			} 
 			j++;
 		}
@@ -284,7 +292,7 @@ public class MultiGenerator extends Generator {
 			limitRoulette.setGenerator(listGenerators[i]);
 			listLimit.add(limitRoulette);
 		}
-		float numbAleatory = (float) (Math.random() * (double)(1));
+		float numbAleatory = (float) (RandomUtil.nextDouble() * (double)(1));
 		boolean find = false;
 		int i = 0;
 		while ((find == false) && (i < listLimit.size())){

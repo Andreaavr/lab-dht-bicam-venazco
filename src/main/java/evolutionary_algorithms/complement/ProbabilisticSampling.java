@@ -1,5 +1,7 @@
 package evolutionary_algorithms.complement;
 
+import util.RandomUtil;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +49,7 @@ public class ProbabilisticSampling extends Sampling {
 			for (int l = 0; l < countInd; l++) {
 				boolean find = false;
 				int p = 0;
-				int random = (int)(Math.random() * (double)(sum)) + 1;
+				int random = (int)(RandomUtil.nextDouble() * (double)(sum)) + 1;
 				while (p < arrOcc.length && find == false) {
 					random = random - arrOcc[p];
 					if(random <= 0){
@@ -57,7 +59,7 @@ public class ProbabilisticSampling extends Sampling {
 					else p++;
 				}
 				if(find == false){
-					int value = new Integer((int)(Math.random() * (double)(Strategy.getStrategy().getProblem().getCodification().getVariableCount() * 10)));
+					int value = Integer.valueOf((int)(RandomUtil.nextDouble() * (double)(Strategy.getStrategy().getProblem().getCodification().getVariableCount() * 10)));
 					staList.get(l).getCode().add(value);
 				}
 				
