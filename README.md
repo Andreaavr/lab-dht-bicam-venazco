@@ -52,7 +52,7 @@ Algoritmos de la demo: `HillClimbing`, `HillClimbingRestart`, `TabuSearch`,
 | JaCoCo | `mvn test` | `target/site/jacoco/index.html` (la fase `verify` exige ≥ 80 % de líneas) |
 | PMD + CPD | `mvn verify` | `target/pmd.xml`, `target/cpd.xml` |
 | Checkstyle | `mvn verify` | `target/checkstyle-result.xml` |
-| SpotBugs + FindSecBugs | `mvn verify` (solo SECURITY, falla si hay hallazgos) · `mvn compile spotbugs:spotbugs spotbugs:gui` (todo) | `target/spotbugsXml.xml` |
+| SpotBugs + FindSecBugs | `mvn verify` (solo SECURITY, falla si hay hallazgos) · `mvn compile spotbugs:spotbugs -Dspotbugs.filter=config/spotbugs/spotbugs-all-include.xml` (todo) | `target/spotbugsXml.xml` |
 | OWASP Dependency-Check | `mvn verify` (falla con CVSS ≥ 7) | `target/dependency-check-report.html` |
 | Informe HTML completo | `mvn site` | `target/site/index.html` |
 | SonarCloud | CI en cada push | Badges de arriba |

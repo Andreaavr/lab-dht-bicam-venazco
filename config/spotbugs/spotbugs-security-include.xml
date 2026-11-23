@@ -5,7 +5,7 @@
   (detectores de SpotBugs y del plugin FindSecBugs). Cualquier hallazgo
   de esta categoría hace fallar la build en la fase verify.
   El análisis completo (todas las categorías) se obtiene con:
-      mvn compile spotbugs:spotbugs   ó   mvn compile spotbugs:gui
+      mvn compile spotbugs:spotbugs -Dspotbugs.filter=config/spotbugs/spotbugs-all-include.xml
 -->
 <FindBugsFilter
         xmlns="https://github.com/spotbugs/filter/3.0.0"

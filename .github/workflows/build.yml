@@ -45,7 +45,7 @@ jobs:
 
       # Informe completo de SpotBugs (todas las categorías) para importarlo en SonarCloud
       - name: Informe completo de SpotBugs
-        run: mvn -B spotbugs:spotbugs
+        run: mvn -B spotbugs:spotbugs -Dspotbugs.filter=config/spotbugs/spotbugs-all-include.xml
 
       - name: Análisis en SonarCloud
         env:

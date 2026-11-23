@@ -52,6 +52,8 @@
         <jacoco.line.coverage.minimum>0.80</jacoco.line.coverage.minimum>
         <!-- OWASP: falla la build con vulnerabilidades de CVSS >= 7 (altas y críticas) -->
         <dependency-check.failBuildOnCVSS>7</dependency-check.failBuildOnCVSS>
+        <!-- Filtro de SpotBugs: solo hallazgos de seguridad (ver config/spotbugs) -->
+        <spotbugs.filter>config/spotbugs/spotbugs-security-include.xml</spotbugs.filter>
     </properties>
 
     <dependencies>
@@ -218,7 +220,13 @@
                     <effort>Max</effort>
                     <threshold>Low</threshold>
                     <xmlOutput>true</xmlOutput>
-                    <failOnError>false</failOnError>
+                    <!--
+                      Por defecto solo se analiza la categoría SECURITY (SpotBugs + FindSecBugs)
+                      y la build falla si aparece algún hallazgo. Para el informe completo:
+                        mvn compile spotbugs:spotbugs -Dspotbugs.filter=config/spotbugs/spotbugs-all-include.xml
+                    -->
+                    <includeFilterFile>${spotbugs.filter}</includeFilterFile>
+                    <failOnError>true</failOnError>
                     <plugins>
                         <plugin>
                             <groupId>com.h3xstream.findsecbugs</groupId>
@@ -235,10 +243,6 @@
                         <goals>
                             <goal>check</goal>
                         </goals>
-                        <configuration>
-                            <includeFilterFile>config/spotbugs/spotbugs-security-include.xml</includeFilterFile>
-                            <failOnError>true</failOnError>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
