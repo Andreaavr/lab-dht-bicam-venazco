@@ -12,32 +12,56 @@ import java.util.List;
 
 import problem.definition.State;
 
+/** Optimización por enjambre de partículas (PSO). */
 public class ParticleSwarmOptimization extends Generator {
 	
+	/** El estado de referencia. */
 	private State stateReferencePSO;
+	/** La lista de estados de referencia. */
 	private List<State> listStateReference = new ArrayList<State>(); 
+	/** Las partículas del enjambre. */
 	private List<Particle> listParticle =  new ArrayList<Particle> ();
+	/** El tipo de generador. */
 	private GeneratorType generatorType;
+	/** El tamaño de la población de referencia. */
 	public static int countRef = 0;            // CANTIDAD DE PARTICULAS TOTAL = coutSwarm * countParticleSwarm
+	/** El número de partículas movidas. */
 	public static int countParticle = 0;       // CANTIDAD DE PARTICULAS QUE SE HAN MOVIDO EN CADA CUMULO
+	/** El número de cúmulos. */
 	public static int coutSwarm = 0;           //CANTIDAD DE CUMULOS
+	/** El número de partículas por cúmulo. */
 	public static int countParticleBySwarm = 0; //CANTIDAD DE PARTICULAS POR CUMULO
+	/** El peso. */
 	private float weight = 50;
+	/** La inercia máxima. */
 	public static double wmax = 0.9;
+	/** La inercia mínima. */
 	public static double wmin = 0.2;
+	/** Los coeficientes de aprendizaje. */
 	public static int learning1 = 2, learning2 = 2;
+	/** El coeficiente de constricción. */
 	public static double constriction;
+	/** El indicador de PSO binario. */
 	public static boolean binary = false;
+	/** Las mejores posiciones locales de cada cúmulo. */
 	public static State[] lBest; 
+	/** La mejor posición global del enjambre. */
 	public static State gBest;
+	/** La iteración actual del PSO. */
 	public static int countCurrentIterPSO;
 	//problemas dinamicos
+    /** El número de usos del generador en el periodo. */
     public static int countGender = 0;
+    /** El número de mejoras del generador en el periodo. */
     public static int countBetterGender = 0;
+    /** El número de mejoras por periodo. */
     private int[] listCountBetterGender = new int[10];
+    /** El número de usos por periodo. */
     private int[] listCountGender = new int[10];
+    /** La traza de pesos. */
     private float[] listTrace = new float[1200000];
 			
+	/** Crea una instancia de ParticleSwarmOptimization. */
 	public ParticleSwarmOptimization(){
 		super();
 		countRef = coutSwarm * countParticleBySwarm;
@@ -56,6 +80,19 @@ public class ParticleSwarmOptimization extends Generator {
 		listCountGender[0] = 0;
 	}
 
+	/**
+	 * Genera un nuevo estado candidato.
+	 *
+	 * @param operatornumber número de vecinos o estados a generar
+	 * @return el estado candidato
+	 * @throws IllegalArgumentException si algún argumento no es válido
+	 * @throws SecurityException si el gestor de seguridad impide la reflexión
+	 * @throws ClassNotFoundException si la clase pedida a la factoría no existe o no está permitida
+	 * @throws InstantiationException si la clase pedida a la factoría no se puede instanciar
+	 * @throws IllegalAccessException si el constructor de la clase no es accesible
+	 * @throws InvocationTargetException si el constructor de la clase lanza una excepción
+	 * @throws NoSuchMethodException si la clase no tiene constructor sin argumentos
+	 */
 	@Override
 	public State generate(Integer operatornumber) throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException{ //PSO
 		if (countParticle >= countRef)
@@ -64,6 +101,7 @@ public class ParticleSwarmOptimization extends Generator {
 	    return listParticle.get(countParticle).getStateActual();
 	}
    	
+	/** Inicializa la mejor posición local de cada cúmulo. */
 	public void inicialiceLBest (){
 		for (int j = 0; j < coutSwarm; j++) {
 			State reference = new State();
@@ -89,11 +127,21 @@ public class ParticleSwarmOptimization extends Generator {
 	}
 	
 	
+	/**
+	 * Devuelve el estado de referencia actual del generador.
+	 *
+	 * @return el estado de referencia
+	 */
 	@Override
 	public State getReference() {
 		return null;
 	}
 	
+	/**
+	 * Obtiene la población inicial de referencia a partir de los estados generados por la búsqueda aleatoria.
+	 *
+	 * @return la población de referencia
+	 */
 	private List<Particle> getListStateRef() {
 		Boolean found = false;
 		List<String> key = Strategy.getStrategy().getListKey();
@@ -137,49 +185,113 @@ public class ParticleSwarmOptimization extends Generator {
 	}
 
 
+	/**
+	 * Devuelve el estado de referencia.
+	 *
+	 * @return el estado de referencia
+	 */
 	public State getStateReferencePSO() {
 		return stateReferencePSO;
 	}
 
+	/**
+	 * Establece el estado de referencia.
+	 *
+	 * @param stateReferencePSO el estado de referencia
+	 */
 	public void setStateReferencePSO(State stateReferencePSO) {
 		this.stateReferencePSO = stateReferencePSO;
 	}
 
+	/**
+	 * Devuelve la lista de estados de referencia.
+	 *
+	 * @return la lista de estados de referencia
+	 */
 	public List<Particle> getListStateReference() {
 		return this.getListParticle();
 	}
 
+	/**
+	 * Establece la lista de estados de referencia.
+	 *
+	 * @param listStateReference la lista de estados de referencia
+	 */
 	public void setListStateReference(List<State> listStateReference) {
 		this.listStateReference = listStateReference;
 	}
 
+	/**
+	 * Devuelve las partículas del enjambre.
+	 *
+	 * @return las partículas del enjambre
+	 */
 	public List<Particle> getListParticle() {
 		return listParticle;
 	}
 
+	/**
+	 * Establece las partículas del enjambre.
+	 *
+	 * @param listParticle las partículas del enjambre
+	 * @return el resultado de la operación
+	 */
 	public List<Particle> setListParticle(List<Particle> listParticle) {
 		this.listParticle = listParticle;
 		return listParticle;
 	}
 
+	/**
+	 * Devuelve el tipo de generador.
+	 *
+	 * @return el tipo de generador
+	 */
 	public GeneratorType getGeneratorType() {
 		return generatorType;
 	}
 
+	/**
+	 * Establece el tipo de generador.
+	 *
+	 * @param generatorType tipo de generador
+	 */
 	public void setGeneratorType(GeneratorType generatorType) {
 		this.generatorType = generatorType;
 	}
 
+	/**
+	 * Devuelve el tamaño de la población de referencia.
+	 *
+	 * @return el tamaño de la población de referencia
+	 */
 	public static int getCountRef() {
 		return countRef;
 	}
 
+	/**
+	 * Establece el tamaño de la población de referencia.
+	 *
+	 * @param countRef el tamaño de la población de referencia
+	 */
 	public static void setCountRef(int countRef) {
 		ParticleSwarmOptimization.countRef = countRef;
 	}
 
 
 	//*****************************************
+	/**
+	 * Actualiza el estado de referencia del generador con el candidato.
+	 *
+	 * @param stateCandidate estado candidato
+	 * @param countIterationsCurrent iteración actual
+	 * @throws IllegalArgumentException si algún argumento no es válido
+	 * @throws SecurityException si el gestor de seguridad impide la reflexión
+	 * @throws ClassNotFoundException si la clase pedida a la factoría no existe o no está permitida
+	 * @throws InstantiationException si la clase pedida a la factoría no se puede instanciar
+	 * @throws IllegalAccessException si el constructor de la clase no es accesible
+	 * @throws InvocationTargetException si el constructor de la clase lanza una excepción
+	 * @throws NoSuchMethodException si la clase no tiene constructor sin argumentos
+	 */
 	@Override
 	public void updateReference(State stateCandidate,Integer countIterationsCurrent) throws IllegalArgumentException,SecurityException, ClassNotFoundException, InstantiationException,IllegalAccessException, InvocationTargetException,NoSuchMethodException {
 		Particle particle = new Particle();
@@ -213,6 +325,11 @@ public class ParticleSwarmOptimization extends Generator {
 		countCurrentIterPSO++;
 	}
 	
+	/**
+	 * Obtiene la mejor posición inicial de todo el enjambre.
+	 *
+	 * @return la mejor posición global
+	 */
 	public State gBestInicial (){
 		State stateBest = lBest[0];
 		for (int i = 1; i < lBest.length; i++) {
@@ -230,51 +347,102 @@ public class ParticleSwarmOptimization extends Generator {
 		return stateBest;
 	}
 
+	/**
+	 * Establece el estado de referencia inicial del generador.
+	 *
+	 * @param stateInitialRef estado de referencia inicial
+	 */
 	@Override
 	public void setInitialReference(State stateInitialRef) {
 
 	}
 
+	/**
+	 * Devuelve el tipo de este generador.
+	 *
+	 * @return el tipo de generador
+	 */
 	@Override
 	public GeneratorType getType() {
 		return this.generatorType;
 	}
 
+	/**
+	 * Devuelve la lista de estados de referencia del generador.
+	 *
+	 * @return la lista de referencias
+	 */
 	@Override
 	public List<State> getReferenceList() {
 		return this.listStateReference;
 	}
 
+	/**
+	 * Devuelve la lista de hijos generados.
+	 *
+	 * @return la lista de hijos o {@code null} si no aplica
+	 */
 	@Override
 	public List<State> getSonList() {
 		return null;
 	}
 
+	/**
+	 * Indica si el candidato mejora la referencia del generador (usado por el portafolio).
+	 *
+	 * @param stateCandidate estado candidato
+	 * @return {@code true} si el candidato mejora la referencia
+	 */
 	@Override
 	public boolean awardUpdateREF(State stateCandidate) {
 		return false;
 	}
 
+	/**
+	 * Establece el peso.
+	 *
+	 * @param weight el peso
+	 */
 	@Override
 	public void setWeight(float weight) {
 
 	}
 
+	/**
+	 * Devuelve el peso.
+	 *
+	 * @return el peso
+	 */
 	@Override
 	public float getWeight() {
 		return 0;
 	}
 
+	/**
+	 * Devuelve el número de mejoras por periodo.
+	 *
+	 * @return el número de mejoras por periodo
+	 */
 	@Override
 	public int[] getListCountBetterGender() {
 		return this.listCountBetterGender;
 	}
 
+	/**
+	 * Devuelve el número de usos por periodo.
+	 *
+	 * @return el número de usos por periodo
+	 */
 	@Override
 	public int[] getListCountGender() {
 		return this.listCountGender;
 	}
 
+	/**
+	 * Devuelve la traza de pesos del generador en el portafolio.
+	 *
+	 * @return la traza de pesos
+	 */
 	@Override
 	public float[] getTrace() {
 		return this.listTrace;

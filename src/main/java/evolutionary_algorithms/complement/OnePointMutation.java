@@ -6,8 +6,16 @@ import util.RandomUtil;
 import metaheurictics.strategy.Strategy;
 import problem.definition.State;
 
+/** Mutación de un punto: con probabilidad PM cambia el valor de una variable aleatoria. */
 public class OnePointMutation extends Mutation {
 
+	/**
+	 * Muta un individuo.
+	 *
+	 * @param state estado
+	 * @param PM probabilidad de mutación
+	 * @return el individuo mutado
+	 */
 	@Override
 	public State mutation(State state, double PM) {
 		double probM = (double)(RandomUtil.nextDouble() * (double)(1));

@@ -10,8 +10,16 @@ import metaheuristics.generators.LimitRoulette;
 
 import problem.definition.State;
 
+/** Selección por ruleta: cada individuo se elige con probabilidad proporcional a su evaluación. */
 public class RouletteSelection extends FatherSelection {
 
+	/**
+	 * Selecciona padres de la población.
+	 *
+	 * @param listState población de estados
+	 * @param truncation número de padres a seleccionar
+	 * @return la lista de padres seleccionados
+	 */
 	@Override
 	public List<State> selection(List<State> listState, int truncation) {
 		float totalWeight = 0;

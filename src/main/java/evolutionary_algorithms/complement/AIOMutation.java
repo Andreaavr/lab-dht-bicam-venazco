@@ -10,11 +10,20 @@ import metaheurictics.strategy.Strategy;
 
 import problem.definition.State;
 
+/** Mutación por inversión para rutas TSP: invierte el tramo comprendido entre dos ciudades aleatorias. */
 public class AIOMutation extends Mutation {
 	
 	
+	/** La ruta auxiliar. */
 	public static ArrayList<Object> path = new ArrayList<Object>();
 
+	/**
+	 * Muta un individuo.
+	 *
+	 * @param state estado
+	 * @param PM probabilidad de mutación
+	 * @return el individuo mutado
+	 */
 	@Override
 	public State mutation(State state, double PM) {
 		int key = Strategy.getStrategy().getProblem().getCodification().getAleatoryKey(); //seleccionar aleatoriamente una ciudad
@@ -46,6 +55,11 @@ public class AIOMutation extends Mutation {
 		return state;
 	}
 	
+	/**
+	 * Ordena la ruta según el valor asociado a cada ciudad.
+	 *
+	 * @param state estado
+	 */
 	public void sortedPathValue(State state) {
 		for(int k = 0; k < state.getCode().size(); k++){
 			path.add( state.getCode().get(k));
@@ -63,6 +77,7 @@ public class AIOMutation extends Mutation {
 	
 	}
 
+	/** Rellena la ruta auxiliar con los índices de todas las variables. */
 	public static void fillPath() {
 		for(int k = 0; k < Strategy.getStrategy().getProblem().getCodification().getVariableCount(); k++){
 			path.add(k);

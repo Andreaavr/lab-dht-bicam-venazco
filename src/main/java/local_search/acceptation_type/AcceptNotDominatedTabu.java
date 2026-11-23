@@ -6,8 +6,18 @@ import metaheurictics.strategy.Strategy;
 
 import problem.definition.State;
 
+/**
+ * Criterio de aceptación de la búsqueda tabú multiobjetivo: acepta siempre y actualiza el frente de Pareto.
+ */
 public class AcceptNotDominatedTabu extends AcceptableCandidate {
 
+	/**
+	 * Decide si el candidato sustituye a la solución actual.
+	 *
+	 * @param stateCurrent estado actual
+	 * @param stateCandidate estado candidato
+	 * @return {@code true} si el candidato es aceptado
+	 */
 	@Override
 	public Boolean acceptCandidate(State stateCurrent, State stateCandidate) {
 		List<State> list = Strategy.getStrategy().listRefPoblacFinal;

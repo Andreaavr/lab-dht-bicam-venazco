@@ -7,8 +7,14 @@ import metaheurictics.strategy.Strategy;
 import problem.definition.State;
 import problem.definition.Problem.ProblemType;
 
+/** Método multiobjetivo de factores ponderados: suma ponderada de las funciones objetivo. */
 public class FactoresPonderados extends SolutionMethod {
 
+	/**
+	 * Evalúa un estado con todas las funciones objetivo y le asigna la evaluación.
+	 *
+	 * @param state estado
+	 */
 	@Override
 	public void evaluationState(State state) {
 		double eval = 0;       

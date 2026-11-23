@@ -5,7 +5,7 @@ import util.RandomUtil;
 import java.security.SecureRandom;
 
 /**
- * @brief Fuente centralizada de números aleatorios de BiCIAM.
+ * Fuente centralizada de números aleatorios de BiCIAM.
  *
  * Sustituye a las llamadas directas a {@code RandomUtil.nextDouble()} y {@code java.util.Random},
  * que FindSecBugs marca como generadores predecibles (PREDICTABLE_RANDOM).

@@ -9,8 +9,15 @@ import metaheurictics.strategy.Strategy;
 import problem.definition.State;
 import problem.definition.Problem.ProblemType;
 
+/** Selección por truncamiento: elige los k mejores individuos de la población. */
 public class TruncationSelection extends FatherSelection {
 	
+	/**
+	 * Ordena la lista de estados de mayor a menor evaluación.
+	 *
+	 * @param listState población de estados
+	 * @return la lista ordenada
+	 */
 	public List<State> OrderBetter (List<State> listState){
 		State var = null;
 		for (int i = 0; i < listState.size()- 1; i++) {
@@ -25,6 +32,12 @@ public class TruncationSelection extends FatherSelection {
 		return listState;
 	}
 	
+	/**
+	 * Ordena la lista de estados de menor a mayor evaluación.
+	 *
+	 * @param listState población de estados
+	 * @return la lista ordenada
+	 */
 	public List<State> ascOrderBetter (List<State> listState){
 		State var = null;
 		for (int i = 0; i < listState.size()- 1; i++) {
@@ -39,6 +52,13 @@ public class TruncationSelection extends FatherSelection {
 		return listState;
 	}
     
+	/**
+	 * Selecciona padres de la población.
+	 *
+	 * @param listState población de estados
+	 * @param truncation número de padres a seleccionar
+	 * @return la lista de padres seleccionados
+	 */
 	@Override
 	public List<State> selection(List<State> listState, int truncation) {
 		List<State> AuxList = new ArrayList<State>();

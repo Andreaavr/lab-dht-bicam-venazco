@@ -24,29 +24,49 @@ import factory_interface.IFFactoryFatherSelection;
 import factory_interface.IFFactoryMutation;
 import factory_interface.IFFactoryReplace;
 
+/** Estrategias evolutivas: selección, mutación y reemplazo sin cruce. */
 public class EvolutionStrategies extends Generator {
 	
+	/** El estado de referencia. */
 	private State stateReferenceES;
+	/** La lista de estados de referencia. */
 	private List<State> listStateReference = new ArrayList<State>(); 
+	/** La factoría de selección de padres. */
 	private IFFactoryFatherSelection iffatherselection;
+	/** La factoría de mutaciones. */
 	private IFFactoryMutation iffactorymutation;
+	/** La factoría de reemplazos. */
 	private IFFactoryReplace iffreplace;
+	/** El tipo de generador. */
 	private GeneratorType generatorType;
+	/** La probabilidad de mutación. */
 	public static double PM;
+	/** El tipo de mutación. */
 	public static MutationType mutationType;
+	/** El tipo de reemplazo. */
 	public static ReplaceType replaceType;
+	/** El tipo de selección. */
 	public static SelectionType selectionType;
+	/** El tamaño de la población de referencia. */
 	public static int countRef = 0;
+	/** El número de padres seleccionados. */
 	public static int truncation;
+	/** El peso. */
 	private float weight = 50;
 	
 	//problemas dinamicos
+	/** El número de usos del generador en el periodo. */
 	public static int countGender = 0;
+	/** El número de mejoras del generador en el periodo. */
 	public static int countBetterGender = 0;
+	/** El número de mejoras por periodo. */
 	private int[] listCountBetterGender = new int[10];
+	/** El número de usos por periodo. */
 	private int[] listCountGender = new int[10];
+	/** La traza de pesos. */
 	private float[] listTrace = new float[1200000];
 	
+	/** Crea una instancia de EvolutionStrategies. */
 	public EvolutionStrategies() {
 		super();
 		this.listStateReference = getListStateRef(); 
@@ -57,6 +77,19 @@ public class EvolutionStrategies extends Generator {
 		listCountGender[0] = 0;
 	}
 
+	/**
+	 * Genera un nuevo estado candidato.
+	 *
+	 * @param operatornumber número de vecinos o estados a generar
+	 * @return el estado candidato
+	 * @throws IllegalArgumentException si algún argumento no es válido
+	 * @throws SecurityException si el gestor de seguridad impide la reflexión
+	 * @throws ClassNotFoundException si la clase pedida a la factoría no existe o no está permitida
+	 * @throws InstantiationException si la clase pedida a la factoría no se puede instanciar
+	 * @throws IllegalAccessException si el constructor de la clase no es accesible
+	 * @throws InvocationTargetException si el constructor de la clase lanza una excepción
+	 * @throws NoSuchMethodException si la clase no tiene constructor sin argumentos
+	 */
 	@Override
 	public State generate(Integer operatornumber) throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException,	NoSuchMethodException {
 
@@ -77,6 +110,11 @@ public class EvolutionStrategies extends Generator {
     	return candidate;
 	}
 
+	/**
+	 * Devuelve el estado de referencia actual del generador.
+	 *
+	 * @return el estado de referencia
+	 */
 	@Override
 	public State getReference() {
 		stateReferenceES = listStateReference.get(0);
@@ -95,20 +133,48 @@ public class EvolutionStrategies extends Generator {
 		return stateReferenceES;
 	}
 	
+	/**
+	 * Establece el estado de referencia.
+	 *
+	 * @param stateRef estado de referencia
+	 */
 	public void setStateRef(State stateRef) {
 		this.stateReferenceES = stateRef;
 	}
 
+	/**
+	 * Devuelve el tipo de este generador.
+	 *
+	 * @return el tipo de generador
+	 */
 	@Override
 	public GeneratorType getType() {
 		return this.generatorType;
 	}
 
+	/**
+	 * Establece el estado de referencia inicial del generador.
+	 *
+	 * @param stateInitialRef estado de referencia inicial
+	 */
 	@Override
 	public void setInitialReference(State stateInitialRef) {
 		this.stateReferenceES = stateInitialRef;
 	}
 
+	/**
+	 * Actualiza el estado de referencia del generador con el candidato.
+	 *
+	 * @param stateCandidate estado candidato
+	 * @param countIterationsCurrent iteración actual
+	 * @throws IllegalArgumentException si algún argumento no es válido
+	 * @throws SecurityException si el gestor de seguridad impide la reflexión
+	 * @throws ClassNotFoundException si la clase pedida a la factoría no existe o no está permitida
+	 * @throws InstantiationException si la clase pedida a la factoría no se puede instanciar
+	 * @throws IllegalAccessException si el constructor de la clase no es accesible
+	 * @throws InvocationTargetException si el constructor de la clase lanza una excepción
+	 * @throws NoSuchMethodException si la clase no tiene constructor sin argumentos
+	 */
 	@Override
 	public void updateReference(State stateCandidate, Integer countIterationsCurrent) throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		iffreplace = new FactoryReplace();
@@ -117,6 +183,11 @@ public class EvolutionStrategies extends Generator {
 
 	}
 	
+	/**
+	 * Obtiene la población inicial de referencia a partir de los estados generados por la búsqueda aleatoria.
+	 *
+	 * @return la población de referencia
+	 */
 	public List<State> getListStateRef(){
 		Boolean found = false;
 		List<String> key = Strategy.getStrategy().getListKey();
@@ -141,22 +212,47 @@ public class EvolutionStrategies extends Generator {
 		return listStateReference;
 	}
 
+	/**
+	 * Devuelve la lista de estados de referencia.
+	 *
+	 * @return la lista de estados de referencia
+	 */
 	public List<State> getListStateReference() {
 		return listStateReference;
 	}
 
+	/**
+	 * Establece la lista de estados de referencia.
+	 *
+	 * @param listStateReference la lista de estados de referencia
+	 */
 	public void setListStateReference(List<State> listStateReference) {
 		this.listStateReference = listStateReference;
 	}
 
+	/**
+	 * Devuelve el tipo de generador.
+	 *
+	 * @return el tipo de generador
+	 */
 	public GeneratorType getTypeGenerator() {
 		return generatorType;
 	}
 
+	/**
+	 * Establece el tipo de generador.
+	 *
+	 * @param generatorType tipo de generador
+	 */
 	public void setTypeGenerator(GeneratorType generatorType) {
 		this.generatorType = generatorType;
 	}
 
+	/**
+	 * Devuelve la lista de estados de referencia del generador.
+	 *
+	 * @return la lista de referencias
+	 */
 	@Override
 	public List<State> getReferenceList() {
 		List<State> ReferenceList = new ArrayList<State>();
@@ -167,36 +263,72 @@ public class EvolutionStrategies extends Generator {
 		return ReferenceList;
 	}
 
+	/**
+	 * Devuelve la lista de hijos generados.
+	 *
+	 * @return la lista de hijos o {@code null} si no aplica
+	 */
 	@Override
 	public List<State> getSonList() {
 		return null;
 	}
 
+	/**
+	 * Indica si el candidato mejora la referencia del generador (usado por el portafolio).
+	 *
+	 * @param stateCandidate estado candidato
+	 * @return {@code true} si el candidato mejora la referencia
+	 */
 	@Override
 	public boolean awardUpdateREF(State stateCandidate) {
 		return false;
 	}
 
+	/**
+	 * Devuelve el peso.
+	 *
+	 * @return el peso
+	 */
 	@Override
 	public float getWeight() {
 		return this.weight;
 	}
 
+	/**
+	 * Establece el peso.
+	 *
+	 * @param weight el peso
+	 */
 	@Override
 	public void setWeight(float weight) {
 		this.weight = weight;
 	}
 
+	/**
+	 * Devuelve el número de mejoras por periodo.
+	 *
+	 * @return el número de mejoras por periodo
+	 */
 	@Override
 	public int[] getListCountBetterGender() {
 		return this.listCountBetterGender;
 	}
 
+	/**
+	 * Devuelve el número de usos por periodo.
+	 *
+	 * @return el número de usos por periodo
+	 */
 	@Override
 	public int[] getListCountGender() {
 		return this.listCountGender;
 	}
 
+	/**
+	 * Devuelve la traza de pesos del generador en el portafolio.
+	 *
+	 * @return la traza de pesos
+	 */
 	@Override
 	public float[] getTrace() {
 		return this.listTrace;

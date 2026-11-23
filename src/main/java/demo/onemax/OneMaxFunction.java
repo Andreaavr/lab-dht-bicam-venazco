@@ -5,7 +5,7 @@ import problem.definition.Problem.ProblemType;
 import problem.definition.State;
 
 /**
- * @brief Función objetivo de OneMax: número de bits a 1 (a maximizar).
+ * Función objetivo de OneMax: número de bits a 1 (a maximizar).
  */
 public class OneMaxFunction extends ObjetiveFunction {
 

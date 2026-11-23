@@ -5,7 +5,7 @@ import problem.definition.State;
 import util.RandomUtil;
 
 /**
- * @brief Codificación binaria del problema OneMax.
+ * Codificación binaria del problema OneMax.
  *
  * Cada estado es un vector de {@code n} variables con valores 0 o 1.
  */

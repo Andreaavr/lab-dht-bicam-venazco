@@ -5,12 +5,21 @@ import java.util.List;
 
 import problem.definition.State;
 
+/** Lista tabú compartida y filtrado de la vecindad para la búsqueda tabú. */
 public class TabuSolutions {
 	
+	/** La lista tabú. */
 	public static List<State> listTabu = new ArrayList<State>();
 
+	/** El tamaño máximo de la lista tabú. */
 	public static int maxelements; 
 
+	/**
+	 * Elimina de la vecindad los estados presentes en la lista tabú.
+	 *
+	 * @param listNeighborhood vecindad de la que elegir
+	 * @return la vecindad filtrada
+	 */
 	public List<State> filterNeighborhood(List<State> listNeighborhood) {
 		List<State> listFiltrate = new ArrayList<State>();
 		if (!listTabu.isEmpty()) {

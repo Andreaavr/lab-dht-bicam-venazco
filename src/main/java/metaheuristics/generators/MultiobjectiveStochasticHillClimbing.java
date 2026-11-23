@@ -15,19 +15,31 @@ import metaheurictics.strategy.Strategy;
 import problem.definition.State;
 
 
+/** Ascensión de colinas estocástica multiobjetivo. */
 public class MultiobjectiveStochasticHillClimbing extends Generator{
 
+	/** El selector de candidatos. */
 	protected CandidateValue candidatevalue;
+	/** El criterio de aceptación. */
 	protected AcceptType typeAcceptation;
+	/** El modo de búsqueda. */
 	protected StrategyType strategy;
+	/** El tipo de candidato. */
 	protected CandidateType typeCandidate;
+	/** El estado de referencia. */
 	protected State stateReferenceHC;
+	/** La factoría de criterios de aceptación. */
 	protected IFFactoryAcceptCandidate ifacceptCandidate;
+	/** El tipo de generador. */
 	protected GeneratorType Generatortype;
+	/** La lista de estados de referencia. */
 	protected List<State> listStateReference = new ArrayList<State>(); 
+	/** El peso. */
 	protected float weight;
+	/** La traza de pesos. */
 	protected List<Float> listTrace = new ArrayList<Float>();
 	
+	/** Crea una instancia de MultiobjectiveStochasticHillClimbing. */
 	public MultiobjectiveStochasticHillClimbing() {
 		super();
 		this.typeAcceptation = AcceptType.AcceptNotDominated;
@@ -39,6 +51,19 @@ public class MultiobjectiveStochasticHillClimbing extends Generator{
 		listTrace.add(weight);
 	}
 
+	/**
+	 * Genera un nuevo estado candidato.
+	 *
+	 * @param operatornumber número de vecinos o estados a generar
+	 * @return el estado candidato
+	 * @throws IllegalArgumentException si algún argumento no es válido
+	 * @throws SecurityException si el gestor de seguridad impide la reflexión
+	 * @throws ClassNotFoundException si la clase pedida a la factoría no existe o no está permitida
+	 * @throws InstantiationException si la clase pedida a la factoría no se puede instanciar
+	 * @throws IllegalAccessException si el constructor de la clase no es accesible
+	 * @throws InvocationTargetException si el constructor de la clase lanza una excepción
+	 * @throws NoSuchMethodException si la clase no tiene constructor sin argumentos
+	 */
 	@Override
 	public State generate(Integer operatornumber) throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		List<State> neighborhood = new ArrayList<State>();
@@ -47,6 +72,19 @@ public class MultiobjectiveStochasticHillClimbing extends Generator{
 	    return statecandidate;
 	}
 
+	/**
+	 * Actualiza el estado de referencia del generador con el candidato.
+	 *
+	 * @param stateCandidate estado candidato
+	 * @param countIterationsCurrent iteración actual
+	 * @throws IllegalArgumentException si algún argumento no es válido
+	 * @throws SecurityException si el gestor de seguridad impide la reflexión
+	 * @throws ClassNotFoundException si la clase pedida a la factoría no existe o no está permitida
+	 * @throws InstantiationException si la clase pedida a la factoría no se puede instanciar
+	 * @throws IllegalAccessException si el constructor de la clase no es accesible
+	 * @throws InvocationTargetException si el constructor de la clase lanza una excepción
+	 * @throws NoSuchMethodException si la clase no tiene constructor sin argumentos
+	 */
 	@Override
 	public void updateReference(State stateCandidate, Integer countIterationsCurrent) throws IllegalArgumentException, SecurityException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException {
 		ifacceptCandidate = new FactoryAcceptCandidate();
@@ -57,69 +95,140 @@ public class MultiobjectiveStochasticHillClimbing extends Generator{
 		getReferenceList();
 	}
 	
+	/**
+	 * Devuelve la lista de estados de referencia del generador.
+	 *
+	 * @return la lista de referencias
+	 */
 	@Override
 	public List<State> getReferenceList() {
 		listStateReference.add( stateReferenceHC.clone());
 		return listStateReference;
 	}
 
+	/**
+	 * Devuelve el estado de referencia actual del generador.
+	 *
+	 * @return el estado de referencia
+	 */
 	@Override
 	public State getReference() {
 		return stateReferenceHC;
 	}
 
+	/**
+	 * Establece el estado de referencia.
+	 *
+	 * @param stateRef estado de referencia
+	 */
 	public void setStateRef(State stateRef) {
 		this.stateReferenceHC = stateRef;
 	}
 
+	/**
+	 * Establece el estado de referencia inicial del generador.
+	 *
+	 * @param stateInitialRef estado de referencia inicial
+	 */
 	@Override
 	public void setInitialReference(State stateInitialRef) {
 		this.stateReferenceHC = stateInitialRef;
 	}
 
+	/**
+	 * Devuelve el tipo de generador.
+	 *
+	 * @return el tipo de generador
+	 */
 	public GeneratorType getGeneratorType() {
 		return Generatortype;
 	}
 
+	/**
+	 * Establece el tipo de generador.
+	 *
+	 * @param Generatortype tipo de generador
+	 */
 	public void setGeneratorType(GeneratorType Generatortype) {
 		this.Generatortype = Generatortype;
 	}
 
+	/**
+	 * Devuelve el tipo de este generador.
+	 *
+	 * @return el tipo de generador
+	 */
 	@Override
 	public GeneratorType getType() {
 		return this.Generatortype;
 	}
 
+	/**
+	 * Devuelve la lista de hijos generados.
+	 *
+	 * @return la lista de hijos o {@code null} si no aplica
+	 */
 	@Override
 	public List<State> getSonList() {
 		return null;
 	}
 
+	/**
+	 * Indica si el candidato mejora la referencia del generador (usado por el portafolio).
+	 *
+	 * @param stateCandidate estado candidato
+	 * @return {@code true} si el candidato mejora la referencia
+	 */
 	@Override
 	public boolean awardUpdateREF(State stateCandidate) {
 		return false;
 	}
 
+	/**
+	 * Devuelve el peso.
+	 *
+	 * @return el peso
+	 */
 	@Override
 	public float getWeight() {
 		return 0;
 	}
 
+	/**
+	 * Establece el peso.
+	 *
+	 * @param weight el peso
+	 */
 	@Override
 	public void setWeight(float weight) {
 		
 	}
 
+	/**
+	 * Devuelve la traza de pesos del generador en el portafolio.
+	 *
+	 * @return la traza de pesos
+	 */
 	@Override
 	public float[] getTrace() {
 		return null;
 	}
 
+	/**
+	 * Devuelve el número de mejoras por periodo.
+	 *
+	 * @return el número de mejoras por periodo
+	 */
 	@Override
 	public int[] getListCountBetterGender() {
 		return null;
 	}
 
+	/**
+	 * Devuelve el número de usos por periodo.
+	 *
+	 * @return el número de usos por periodo
+	 */
 	@Override
 	public int[] getListCountGender() {
 		return null;

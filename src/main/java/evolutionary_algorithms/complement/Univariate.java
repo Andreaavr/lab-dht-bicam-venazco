@@ -9,8 +9,17 @@ import problem.definition.State;
 
 
 
+/**
+ * Distribución univariada: estima la probabilidad de cada valor de cada variable de forma independiente.
+ */
 public class Univariate extends Distribution {
 
+	/**
+	 * Estima la distribución de probabilidad de los padres.
+	 *
+	 * @param fathers padres seleccionados
+	 * @return la lista de probabilidades por variable y valor
+	 */
 	@Override
 	public List<Probability> distribution(List<State> fathers) {
 
@@ -49,6 +58,12 @@ public class Univariate extends Distribution {
 		return ListProbability;
 	}
 
+	/**
+	 * Obtiene los nombres de las claves del mapa.
+	 *
+	 * @param map mapa del que obtener las claves
+	 * @return la lista de claves
+	 */
 	public List<String> getListKey(SortedMap<String, Object> map){
 		List<String> listKey = new ArrayList<String>();
 		String key = map.keySet().toString();

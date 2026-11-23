@@ -10,8 +10,19 @@ import java.util.ArrayList;
 import problem.definition.State;
 
 
+/**
+ * Cruce de un punto: el hijo toma los genes de un padre hasta el punto de corte y del otro a partir de él.
+ */
 public class OnePointCrossover extends Crossover {
 
+	/**
+	 * Cruza dos padres y obtiene un hijo.
+	 *
+	 * @param father1 primer padre
+	 * @param father2 segundo padre
+	 * @param PC probabilidad de cruce
+	 * @return el hijo generado
+	 */
 	@Override
 	public State crossover(State father1, State father2, double PC) {
 				

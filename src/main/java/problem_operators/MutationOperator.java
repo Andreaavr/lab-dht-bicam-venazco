@@ -9,8 +9,16 @@ import problem.definition.Operator;
 import problem.definition.State;
 
 
+/** Operador de vecindad genérico basado en la mutación de una variable aleatoria. */
 public class MutationOperator extends Operator {
 
+	/**
+	 * Genera vecinos de un estado.
+	 *
+	 * @param stateCurrent estado actual
+	 * @param operatornumber número de vecinos o estados a generar
+	 * @return la lista de vecinos
+	 */
 	public List<State> generatedNewState(State stateCurrent, Integer operatornumber){
 		List<State> listNeigborhood = new ArrayList<State>();
 		for (int i = 0; i < operatornumber; i++){
@@ -23,6 +31,12 @@ public class MutationOperator extends Operator {
 		return listNeigborhood;
 	}
 
+	/**
+	 * Genera estados aleatorios del problema.
+	 *
+	 * @param operatornumber número de vecinos o estados a generar
+	 * @return la lista de estados generados
+	 */
 	@Override
 	public List<State> generateRandomState(Integer operatornumber) {
 		return null;

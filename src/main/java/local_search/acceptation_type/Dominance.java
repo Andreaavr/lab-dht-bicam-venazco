@@ -9,11 +9,19 @@ import problem.definition.State;
 
 
 
+/** Operaciones de dominancia de Pareto usadas por los algoritmos multiobjetivo. */
 public class Dominance {
 
 	//---------------------------------Métodos que se utilizan en los algoritmos multiobjetivo-------------------------------------------------------//
 	//Función que determina si la solución X domina a alguna de las soluciones no dominadas de una lista
 	//Devuelve la lista actualizada y true si fue adicionada a la lista o false de lo contrario
+	/**
+	 * Inserta la solución en la lista de no dominadas si no es dominada, eliminando las que domine.
+	 *
+	 * @param solutionX solución X
+	 * @param list lista de soluciones no dominadas
+	 * @return {@code true} si la solución se añadió a la lista
+	 */
 	public boolean ListDominance(State solutionX, List<State> list){
 		boolean domain = false;
 		for (int i = 0; i < list.size() && !domain; i++) {
@@ -60,6 +68,13 @@ public class Dominance {
 
 
 	//Función que devuelve true si solutionX domina a solutionY
+	/**
+	 * Determina si la solución X domina a la solución Y.
+	 *
+	 * @param solutionX solución X
+	 * @param solutionY solución Y
+	 * @return {@code true} si X domina a Y
+	 */
 	public boolean dominance(State solutionX,  State solutionY)	{
 		boolean dominance = false;
 		int countBest = 0;

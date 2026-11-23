@@ -12,13 +12,18 @@ import java.util.ArrayList;
 
 import problem.definition.State;
 
+/** Partícula del algoritmo de optimización por enjambre (PSO). */
 public class Particle extends Generator {
 
+	/** La mejor posición de la partícula. */
 	private State statePBest;
+	/** La posición actual de la partícula. */
 	private State stateActual;
+	/** La velocidad de la partícula. */
 	private ArrayList<Object> velocity;
 	
 	
+	/** Crea una instancia de Particle. */
 	public Particle() {
 		super();
 		this.stateActual = new State();
@@ -26,6 +31,13 @@ public class Particle extends Generator {
 		this.velocity = new ArrayList<Object>();
 	}
 	
+	/**
+	 * Crea una instancia de Particle con los valores indicados.
+	 *
+	 * @param statePBest la mejor posición de la partícula
+	 * @param stateActual la posición actual de la partícula
+	 * @param velocity la velocidad de la partícula
+	 */
 	public Particle(State statePBest, State stateActual, ArrayList<Object> velocity) {
 		super();
 		this.statePBest = statePBest;
@@ -33,30 +45,73 @@ public class Particle extends Generator {
 		this.velocity = velocity;
 	}
 
+	/**
+	 * Devuelve la velocidad de la partícula.
+	 *
+	 * @return la velocidad de la partícula
+	 */
 	public ArrayList<Object> getVelocity() {
 		return velocity;
 	}
 
+	/**
+	 * Establece la velocidad de la partícula.
+	 *
+	 * @param velocity la velocidad de la partícula
+	 */
 	public void setVelocity(ArrayList<Object> velocity) {
 		this.velocity = velocity;
 	}
 
+	/**
+	 * Devuelve la mejor posición de la partícula.
+	 *
+	 * @return la mejor posición de la partícula
+	 */
 	public State getStatePBest() {
 		return statePBest;
 	}
 
+	/**
+	 * Establece la mejor posición de la partícula.
+	 *
+	 * @param statePBest la mejor posición de la partícula
+	 */
 	public void setStatePBest(State statePBest) {
 		this.statePBest = statePBest;
 	}
 
+	/**
+	 * Devuelve la posición actual de la partícula.
+	 *
+	 * @return la posición actual de la partícula
+	 */
 	public State getStateActual() {
 		return stateActual;
 	}
 
+	/**
+	 * Establece la posición actual de la partícula.
+	 *
+	 * @param stateActual la posición actual de la partícula
+	 */
 	public void setStateActual(State stateActual) {
 		this.stateActual = stateActual;
 	}
 
+	/**
+	 * Genera un nuevo estado candidato.
+	 *
+	 * @param operatornumber número de vecinos o estados a generar
+	 * @return el estado candidato
+	 * @throws IllegalArgumentException si algún argumento no es válido
+	 * @throws SecurityException si el gestor de seguridad impide la reflexión
+	 * @throws ClassNotFoundException si la clase pedida a la factoría no existe o no está permitida
+	 * @throws InstantiationException si la clase pedida a la factoría no se puede instanciar
+	 * @throws IllegalAccessException si el constructor de la clase no es accesible
+	 * @throws InvocationTargetException si el constructor de la clase lanza una excepción
+	 * @throws NoSuchMethodException si la clase no tiene constructor sin argumentos
+	 */
 	@Override
 	public State generate(Integer operatornumber)
 			throws IllegalArgumentException, SecurityException,
@@ -72,6 +127,11 @@ public class Particle extends Generator {
 	}
 	
 	
+	/**
+	 * Actualiza la velocidad de la partícula según su mejor posición y la del enjambre.
+	 *
+	 * @return la nueva velocidad
+	 */
 	private ArrayList<Object> UpdateVelocity(){ // actualizar velocidad
     	double w = ParticleSwarmOptimization.wmax - ((ParticleSwarmOptimization.wmax - ParticleSwarmOptimization.wmin) / Strategy.getStrategy().getCountMax()) * ParticleSwarmOptimization.countCurrentIterPSO;  //CALCULO DE LA INERCIA
     	double rand1 = (double)(RandomUtil.nextDouble() * (double)(1));
@@ -104,6 +164,12 @@ public class Particle extends Generator {
         return actualVelocity;
     }
 	
+	/**
+	 * Actualiza el código (posición) de la partícula a partir de su velocidad.
+	 *
+	 * @param actualVelocity velocidad actual
+	 * @return el resultado de la operación
+	 */
 	private ArrayList<Object> UpdateCode(ArrayList<Object> actualVelocity) {  // CALCULO DE LA NUEA POSICION DE LA PARTICULA
 		ArrayList<Object> newCode = new ArrayList<Object>();
 		ArrayList<Object> binaryCode = new ArrayList<Object>();
@@ -132,6 +198,19 @@ public class Particle extends Generator {
 	}
 	
 
+	/**
+	 * Actualiza el estado de referencia del generador con el candidato.
+	 *
+	 * @param stateCandidate estado candidato
+	 * @param countIterationsCurrent iteración actual
+	 * @throws IllegalArgumentException si algún argumento no es válido
+	 * @throws SecurityException si el gestor de seguridad impide la reflexión
+	 * @throws ClassNotFoundException si la clase pedida a la factoría no existe o no está permitida
+	 * @throws InstantiationException si la clase pedida a la factoría no se puede instanciar
+	 * @throws IllegalAccessException si el constructor de la clase no es accesible
+	 * @throws InvocationTargetException si el constructor de la clase lanza una excepción
+	 * @throws NoSuchMethodException si la clase no tiene constructor sin argumentos
+	 */
 	@Override
 	public void updateReference(State stateCandidate,
 			Integer countIterationsCurrent) throws IllegalArgumentException,
@@ -153,56 +232,112 @@ public class Particle extends Generator {
 		
 	}
 
+	/**
+	 * Devuelve el estado de referencia actual del generador.
+	 *
+	 * @return el estado de referencia
+	 */
 	@Override
 	public State getReference() {
 		return null;
 	}
 
+	/**
+	 * Establece el estado de referencia inicial del generador.
+	 *
+	 * @param stateInitialRef estado de referencia inicial
+	 */
 	@Override
 	public void setInitialReference(State stateInitialRef) {
 
 	}
 
+	/**
+	 * Devuelve el tipo de este generador.
+	 *
+	 * @return el tipo de generador
+	 */
 	@Override
 	public GeneratorType getType() {
 		return null;
 	}
 
+	/**
+	 * Devuelve la lista de estados de referencia del generador.
+	 *
+	 * @return la lista de referencias
+	 */
 	@Override
 	public List<State> getReferenceList() {
 		return null;
 	}
 
+	/**
+	 * Devuelve la lista de hijos generados.
+	 *
+	 * @return la lista de hijos o {@code null} si no aplica
+	 */
 	@Override
 	public List<State> getSonList() {
 		return null;
 	}
 
+	/**
+	 * Indica si el candidato mejora la referencia del generador (usado por el portafolio).
+	 *
+	 * @param stateCandidate estado candidato
+	 * @return {@code true} si el candidato mejora la referencia
+	 */
 	@Override
 	public boolean awardUpdateREF(State stateCandidate) {
 		return false;
 	}
 
+	/**
+	 * Establece el peso.
+	 *
+	 * @param weight el peso
+	 */
 	@Override
 	public void setWeight(float weight) {
 
 	}
 
+	/**
+	 * Devuelve el peso.
+	 *
+	 * @return el peso
+	 */
 	@Override
 	public float getWeight() {
 		return 0;
 	}
 
+	/**
+	 * Devuelve la traza de pesos del generador en el portafolio.
+	 *
+	 * @return la traza de pesos
+	 */
 	@Override
 	public float[] getTrace() {
 		return null;
 	}
 
+	/**
+	 * Devuelve el número de mejoras por periodo.
+	 *
+	 * @return el número de mejoras por periodo
+	 */
 	@Override
 	public int[] getListCountBetterGender() {
 		return null;
 	}
 
+	/**
+	 * Devuelve el número de usos por periodo.
+	 *
+	 * @return el número de usos por periodo
+	 */
 	@Override
 	public int[] getListCountGender() {
 		return null;

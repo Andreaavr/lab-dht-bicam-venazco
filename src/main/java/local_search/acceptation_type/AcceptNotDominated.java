@@ -6,8 +6,18 @@ import metaheurictics.strategy.Strategy;
 
 import problem.definition.State;
 
+/**
+ * Criterio de aceptación multiobjetivo: acepta candidatos no dominados y actualiza el frente de Pareto.
+ */
 public class AcceptNotDominated extends AcceptableCandidate {
 	
+	/**
+	 * Decide si el candidato sustituye a la solución actual.
+	 *
+	 * @param stateCurrent estado actual
+	 * @param stateCandidate estado candidato
+	 * @return {@code true} si el candidato es aceptado
+	 */
 	@Override
 	public Boolean acceptCandidate(State stateCurrent, State stateCandidate) {
 		Boolean accept = false;

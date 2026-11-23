@@ -13,8 +13,16 @@ import java.util.List;
 import problem.definition.State;
 
 
+/** Muestreo probabilístico: genera individuos según la frecuencia de cada valor en los padres. */
 public class ProbabilisticSampling extends Sampling {
 
+	/**
+	 * Genera nuevos individuos a partir de los padres.
+	 *
+	 * @param fathers padres seleccionados
+	 * @param countInd número de individuos a generar
+	 * @return la lista de individuos generados
+	 */
 	@Override
 	public List<State> sampling(List<State> fathers, int countInd) {
 		int cantV = fathers.get(0).getCode().size();
@@ -69,6 +77,12 @@ public class ProbabilisticSampling extends Sampling {
 	}
 	
 	// inicializa la lista de individuos
+		/**
+		 * Inicializa la lista de individuos vacíos que se van a muestrear.
+		 *
+		 * @param countInd número de individuos a generar
+		 * @return la lista de individuos
+		 */
 		public List<State> listState(int countInd) {
 			List<State> staList = new ArrayList<State>(countInd);
 			for (int i = 0; i < countInd; i++) {

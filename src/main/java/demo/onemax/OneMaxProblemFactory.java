@@ -7,7 +7,7 @@ import problem.definition.Problem;
 import problem.definition.Problem.ProblemType;
 
 /**
- * @brief Construye instancias de {@link Problem} para OneMax.
+ * Construye instancias de {@link Problem} para OneMax.
  */
 public final class OneMaxProblemFactory {
 

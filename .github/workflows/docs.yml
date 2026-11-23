@@ -1,0 +1,42 @@
+# Genera la documentación con Doxygen y la publica en GitHub Pages.
+# Requisito: Settings > Pages > Build and deployment > Source = "GitHub Actions".
+name: Documentación (Doxygen)
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  doxygen:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Instalar Doxygen y Graphviz
+        run: sudo apt-get update && sudo apt-get install -y doxygen graphviz
+
+      - name: Generar documentación
+        run: doxygen Doxyfile
+
+      - name: Avisos de Doxygen
+        run: cat docs/doxygen-warnings.log || true
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/html
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

@@ -8,7 +8,7 @@ import problem.definition.State;
 import util.RandomUtil;
 
 /**
- * @brief Operador de vecindad de OneMax: invierte un bit elegido al azar.
+ * Operador de vecindad de OneMax: invierte un bit elegido al azar.
  */
 public class OneMaxOperator extends Operator {
 

@@ -4,10 +4,18 @@ package evolutionary_algorithms.complement;
 
 import metaheurictics.strategy.Strategy;
 import problem.definition.State;
+/** Mutación de dos puntos: asigna valores aleatorios a dos variables elegidas al azar. */
 public class TowPointsMutation extends Mutation {
 
 	
 
+	/**
+	 * Muta un individuo.
+	 *
+	 * @param newind individuo a mutar
+	 * @param PM probabilidad de mutación
+	 * @return el individuo mutado
+	 */
 	@Override
 	public State mutation(State newind, double PM) {
 		Object key1 = Strategy.getStrategy().getProblem().getCodification().getAleatoryKey();

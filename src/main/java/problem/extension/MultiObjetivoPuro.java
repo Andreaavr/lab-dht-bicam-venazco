@@ -8,8 +8,14 @@ import problem.definition.ObjetiveFunction;
 import problem.definition.State;
 import problem.definition.Problem.ProblemType;
 
+/** Método multiobjetivo puro: conserva una evaluación por función objetivo. */
 public class MultiObjetivoPuro extends SolutionMethod {
 
+	/**
+	 * Evalúa un estado con todas las funciones objetivo y le asigna la evaluación.
+	 *
+	 * @param state estado
+	 */
 	@Override
 	public void evaluationState(State state) {
 		double tempEval = -1;

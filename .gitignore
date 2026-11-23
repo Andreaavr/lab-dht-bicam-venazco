@@ -7,3 +7,4 @@ bin/
 .DS_Store
 docs/html/
 docs/latex/
+docs/doxygen-warnings.log

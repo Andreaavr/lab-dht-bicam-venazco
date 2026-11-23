@@ -8,9 +8,17 @@ import problem.definition.State;
 
 
 
+/** Métricas de calidad de frentes de Pareto: tasa de error, distancia generacional y dispersión. */
 public class MetricasMultiobjetivo {
 
 // % de soluciones q no son miembros del frente de pareto verdadero
+	/**
+	 * Calcula la fracción de soluciones del frente actual que no pertenecen al frente verdadero.
+	 *
+	 * @param solutionsFPcurrent frente de Pareto obtenido
+	 * @param solutionsFPtrue frente de Pareto verdadero
+	 * @return la tasa de error en [0, 1]
+	 */
 	public double TasaError(List<State> solutionsFPcurrent, List<State> solutionsFPtrue){
 		float tasaError = 0;
 		for (int i = 0; i < solutionsFPcurrent.size() ; i++) { // frente de pareto actual
@@ -24,6 +32,13 @@ public class MetricasMultiobjetivo {
 	}
 	
 // % Indica  qué  tan  lejos  están  los  elementos  del frente  de  Pareto  actual  respecto  al  frente  de  Pareto  verdadero	
+	/**
+	 * Calcula la distancia generacional entre el frente actual y el verdadero.
+	 *
+	 * @param solutionsFPcurrent frente de Pareto obtenido
+	 * @param solutionsFPtrue frente de Pareto verdadero
+	 * @return la distancia generacional
+	 */
 	public double DistanciaGeneracional(List<State> solutionsFPcurrent, List<State> solutionsFPtrue){
 		float min = 1000;
 		float distancia = 0;
@@ -50,6 +65,12 @@ public class MetricasMultiobjetivo {
 		return total;
 	}
 
+	/**
+	 * Calcula la dispersión (spacing) de un conjunto de soluciones.
+	 *
+	 * @param solutions soluciones
+	 * @return la dispersión de las soluciones
+	 */
 	public double Dispersion(ArrayList<State> solutions){
 		//Soluciones obtenidas con la ejecución del algoritmo X
 		LinkedList<Float> distancias = new LinkedList<Float>();
@@ -90,6 +111,13 @@ public class MetricasMultiobjetivo {
 		}
 		return dispersion;
 	}
+	/**
+	 * Comprueba si una solución con la misma evaluación pertenece a una lista.
+	 *
+	 * @param solA solución buscada
+	 * @param solutions soluciones
+	 * @return {@code true} si la lista la contiene
+	 */
 	private boolean Contains(State solA, List<State> solutions){
 		int i = 0;
 		boolean result = false;
@@ -101,6 +129,12 @@ public class MetricasMultiobjetivo {
 		}
 		return result;
 	}
+	/**
+	 * Calcula el mínimo de una lista de valores de métricas.
+	 *
+	 * @param allMetrics valores de la métrica
+	 * @return el valor mínimo
+	 */
 	public double CalcularMin(ArrayList<Double> allMetrics){
 		double min = 1000;
 		for (Iterator<Double> iter = allMetrics.iterator(); iter.hasNext();) {
@@ -112,6 +146,12 @@ public class MetricasMultiobjetivo {
 		return min;
 	}
 
+	/**
+	 * Calcula el máximo de una lista de valores de métricas.
+	 *
+	 * @param allMetrics valores de la métrica
+	 * @return el valor máximo
+	 */
 	public double CalcularMax(ArrayList<Double> allMetrics){
 		double max = 0;
 		for (Iterator<Double> iter = allMetrics.iterator(); iter.hasNext();) {
@@ -122,6 +162,12 @@ public class MetricasMultiobjetivo {
 		}
 		return max;
 	}
+	/**
+	 * Calcula la media de una lista de valores de métricas.
+	 *
+	 * @param allMetrics valores de la métrica
+	 * @return la media aritmética
+	 */
 	public double CalcularMedia(ArrayList<Double> allMetrics){
 		double sum = 0;
 		for (Iterator<Double> iter = allMetrics.iterator(); iter.hasNext();) {

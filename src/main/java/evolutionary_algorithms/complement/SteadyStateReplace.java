@@ -7,8 +7,16 @@ import problem.definition.State;
 import problem.definition.Problem.ProblemType;
 
 
+/** Reemplazo de estado estacionario: el candidato sustituye al peor individuo si lo mejora. */
 public class SteadyStateReplace extends Replace {
 
+	/**
+	 * Incorpora el candidato a la población según la política de reemplazo.
+	 *
+	 * @param stateCandidate estado candidato
+	 * @param listState población de estados
+	 * @return la población actualizada
+	 */
 	@Override
 	public List<State> replace(State stateCandidate, List<State> listState) {
 		State stateREP = null;
@@ -47,6 +55,12 @@ public class SteadyStateReplace extends Replace {
 		return listState;
 	}
 	
+	/**
+	 * Busca el estado de menor evaluación.
+	 *
+	 * @param listState población de estados
+	 * @return el estado con la evaluación mínima
+	 */
 	public State MinValue (List<State> listState){
 		State value = listState.get(0);
 		double min = listState.get(0).getEvaluation().get(0);
@@ -59,6 +73,12 @@ public class SteadyStateReplace extends Replace {
 		return value;
 	}
 	
+	/**
+	 * Busca el estado de mayor evaluación.
+	 *
+	 * @param listState población de estados
+	 * @return el estado con la evaluación máxima
+	 */
 	public State MaxValue (List<State> listState){
 		State value = listState.get(0);
 		double max = listState.get(0).getEvaluation().get(0);

@@ -10,8 +10,16 @@ import java.util.List;
 
 import problem.definition.State;
 
+/** Criterio de aceptación multicaso del recocido simulado multiobjetivo (MC-MOSA). */
 public class AcceptMulticase extends AcceptableCandidate {
 
+	/**
+	 * Decide si el candidato sustituye a la solución actual.
+	 *
+	 * @param stateCurrent estado actual
+	 * @param stateCandidate estado candidato
+	 * @return {@code true} si el candidato es aceptado
+	 */
 	@Override
 	public Boolean acceptCandidate(State stateCurrent, State stateCandidate) {
 		Boolean accept = false;
@@ -80,6 +88,13 @@ public class AcceptMulticase extends AcceptableCandidate {
 	}
 
 
+	/**
+	 * Cuenta cuántas soluciones de la lista son dominadas por el candidato.
+	 *
+	 * @param stateCandidate estado candidato
+	 * @param list lista de soluciones no dominadas
+	 * @return número de soluciones dominadas
+	 */
 	private int DominanceCounter(State stateCandidate, List<State> list) { //chequea el número de soluciones de Pareto que son dominados por la nueva solución
 		int counter = 0;
 		for (int i = 0; i < list.size(); i++) {
@@ -91,6 +106,13 @@ public class AcceptMulticase extends AcceptableCandidate {
 		return counter;
 	}
 
+	/**
+	 * Cuenta cuántas soluciones de la lista dominan al candidato.
+	 *
+	 * @param stateCandidate estado candidato
+	 * @param list lista de soluciones no dominadas
+	 * @return el rango de dominancia
+	 */
 	private int DominanceRank(State stateCandidate, List<State> list) { //calculando el número de soluciones en el conjunto de Pareto que dominan a la solución
 		int rank = 0;
 		for (int i = 0; i < list.size(); i++) {

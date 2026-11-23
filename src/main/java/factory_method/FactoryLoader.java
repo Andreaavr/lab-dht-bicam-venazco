@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 /**
- * @brief Cargador reflexivo usado por todas las factorías de BiCIAM.
+ * Cargador reflexivo usado por todas las factorías de BiCIAM.
  *
  * Crea instancias a partir del nombre completo de una clase. Por seguridad solo se
  * permiten clases de los paquetes propios de BiCIAM (lista blanca), de modo que un
@@ -20,6 +20,7 @@ public final class FactoryLoader {
             "local_search.acceptation_type.",
             "local_search.candidate_type.",
             "evolutionary_algorithms.complement.",
+            /** El valor de ). */
             "problem.extension.");
 
     /** Clase de utilidades: no se instancia. */
