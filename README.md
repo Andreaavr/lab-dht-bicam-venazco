@@ -21,7 +21,7 @@ FindSecBugs, OWASP Dependency-Check, SonarCloud, Doxygen y Docker.
 |------|-----------|
 | `pom.xml` | Proyecto Maven con todos los plugins de calidad y seguridad |
 | `src/main/java` | Código fuente de BiCIAM (+ `demo`: problema OneMax y aplicación de ejemplo; `util`: `RandomUtil`) |
-| `src/test/java` | 127 pruebas unitarias con JUnit 5 |
+| `src/test/java` | 130 pruebas unitarias con JUnit 5 |
 | `config/` | Filtro de SpotBugs (categoría SECURITY) y supresiones de OWASP |
 | `Doxyfile`, `docs/` | Configuración de Doxygen; la documentación se genera en `docs/html` |
 | `Dockerfile`, `scripts/docker.sh` | Imagen multi-etapa y script de construcción/ejecución |
@@ -75,7 +75,7 @@ posición 0, la lista tabú nunca filtraba (comparaba por identidad), `AcceptNot
 `HillClimbing`, comparaciones de `Integer` con `==`, divisiones enteras y distancias que no se
 reiniciaban en `MetricasMultiobjetivo`.
 
-**Pruebas:** 127 pruebas JUnit 5. Cobertura de línea medida: ~91 % en las clases probadas
+**Pruebas:** 130 pruebas JUnit 5. Cobertura de línea medida: ~91 % en las clases probadas
 (80 % en todo el proyecto). Quedan fuera de la regla de JaCoCo `MultiGenerator`, PSO y EDA, que en
 el código original no pueden ejecutarse de forma aislada.
 
